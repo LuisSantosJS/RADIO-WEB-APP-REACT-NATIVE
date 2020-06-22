@@ -20,6 +20,7 @@
 		4B4471EB4C1533CF688B5243 /* libPods-radiowebapplication-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF73017F623478715822AF1F /* libPods-radiowebapplication-tvOS.a */; };
 		FCFAC8DB2C2CC96108B8C4B5 /* libPods-radiowebapplication.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E88B6C67E1544BC24E7B10 /* libPods-radiowebapplication.a */; };
 		FEA5BEE6FC0415B116A21001 /* libPods-radiowebapplication-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9370009C82B6DD74D79067BD /* libPods-radiowebapplication-tvOSTests.a */; };
+		65DC031908594008A73EF733 /* libRNAudioPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9666804C8FD4CF3B4EEFA32 /* libRNAudioPlayer.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,8 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		FBEA0DAD1FDF8EEE3D998109 /* Pods-radiowebapplication.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-radiowebapplication.debug.xcconfig"; path = "Target Support Files/Pods-radiowebapplication/Pods-radiowebapplication.debug.xcconfig"; sourceTree = "<group>"; };
+		DE0263CFE07146569856074F /* RNAudioPlayer.xcodeproj */ = {isa = PBXFileReference; name = "RNAudioPlayer.xcodeproj"; path = "../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		A9666804C8FD4CF3B4EEFA32 /* libRNAudioPlayer.a */ = {isa = PBXFileReference; name = "libRNAudioPlayer.a"; path = "libRNAudioPlayer.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FCFAC8DB2C2CC96108B8C4B5 /* libPods-radiowebapplication.a in Frameworks */,
+				65DC031908594008A73EF733 /* libRNAudioPlayer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +172,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				DE0263CFE07146569856074F /* RNAudioPlayer.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -600,6 +605,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/radiowebapplication.app/radiowebapplication";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer",
+				);
 			};
 			name = Debug;
 		};
@@ -620,6 +633,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/radiowebapplication.app/radiowebapplication";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer",
+				);
 			};
 			name = Release;
 		};
@@ -647,6 +668,10 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer",
+				);
 			};
 			name = Debug;
 		};
@@ -668,6 +693,10 @@
 				PRODUCT_NAME = radiowebapplication;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer",
+				);
 			};
 			name = Release;
 		};
@@ -696,6 +725,14 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer",
+				);
 			};
 			name = Debug;
 		};
@@ -724,6 +761,14 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer",
+				);
 			};
 			name = Release;
 		};
@@ -751,6 +796,14 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/radiowebapplication-tvOS.app/radiowebapplication-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer",
+				);
 			};
 			name = Debug;
 		};
@@ -778,6 +831,14 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/radiowebapplication-tvOS.app/radiowebapplication-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer",
+				);
 			};
 			name = Release;
 		};
