@@ -74,16 +74,8 @@ const Home: React.FC = () => {
                         <Icon.MaterialCommunityIcons name={'volume-medium'} color={'white'} size={width * 0.1} />
                     </TouchableOpacity>
 
-                    <Slider
-                        style={{ width: '60%' }}
-                        minimumTrackTintColor="#FFFFFF"
-                        maximumTrackTintColor="#E5E5E5"
-                        minimumValue={0}
-                        maximumValue={1}
-                        thumbTintColor="#FFFFFF"
-                        onValueChange={e => VolumeControl.change(e)}
+                    <View style={{ width: '60%', height: 1 }} />
 
-                    />
 
                     <TouchableOpacity activeOpacity={0.7} style={styles.itemGridControl}>
                         <Icon.MaterialCommunityIcons name={'volume-high'} color={'white'} size={width * 0.1} />
