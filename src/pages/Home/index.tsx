@@ -2,18 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { View, Button, Dimensions, Image, Text } from 'react-native';
 import Stream from '../../component/PlayerStream';
 import styles from './styles';
-import { usePlayerStream, useVolumePlayer } from '../../Context/contextPlayer';
+import { usePlayerStream } from '../../Context/contextPlayer';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from '../../assets/icons/icons';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
-import VolumeControl from "react-native-volume-control";
-import Slider from '@react-native-community/slider';
+import ScrollName from './ScrollName';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const Home: React.FC = () => {
     const navigation = useNavigation();
     const { play, setPlay } = usePlayerStream();
-    const { volume, setVolume } = useVolumePlayer();
     const [namePlayPause, setNamePlayPause] = useState<string>('play');
     const [like, setLike] = useState<boolean>(false);
     const [likeName, setLikeName] = useState('like2');
@@ -50,6 +48,7 @@ const Home: React.FC = () => {
                 <TouchableOpacity style={styles.ViewIconHeader} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} >
                     <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/menu.png')} />
                 </TouchableOpacity>
+                <Text style={styles.textLive}>RADIO WEB</Text>
                 <TouchableOpacity style={styles.ViewIconHeader} >
                     <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/share.png')} />
                 </TouchableOpacity>
@@ -68,19 +67,13 @@ const Home: React.FC = () => {
                         LOGO
                     </Text>
                 </View>
-                <Text style={styles.textLive}>NOME DA MUSICA - ABC</Text>
-                <View style={styles.viewTouchProgress}>
-                    <TouchableOpacity activeOpacity={0.7} style={styles.itemGridControl}>
-                        <Icon.MaterialCommunityIcons name={'volume-medium'} color={'white'} size={width * 0.1} />
-                    </TouchableOpacity>
-
-                    <View style={{ width: '60%', height: 1 }} />
-
-
-                    <TouchableOpacity activeOpacity={0.7} style={styles.itemGridControl}>
-                        <Icon.MaterialCommunityIcons name={'volume-high'} color={'white'} size={width * 0.1} />
-                    </TouchableOpacity>
+       
+                <View style={styles.scrollAuto}>
+                    <ScrollName />
                 </View>
+                <View style={styles.gradeLine} />
+       
+               
 
                 <View style={styles.gridControl}>
                     <TouchableOpacity activeOpacity={0.7} style={styles.itemGridControl} onPress={hanldleHearth}>

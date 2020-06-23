@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './styles';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { View, Button, Dimensions, Image, Text, TouchableOpacity } from 'react-native';
-const QueriesMusic: React.FC = () => {
+const Info: React.FC = () => {
     const navigation = useNavigation();
     return (
         <>
@@ -23,4 +23,4 @@ const QueriesMusic: React.FC = () => {
     );
 }
 
-export default QueriesMusic;
+export default Info;

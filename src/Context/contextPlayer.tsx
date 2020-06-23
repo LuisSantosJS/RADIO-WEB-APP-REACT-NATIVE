@@ -4,8 +4,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 type ContextType = {
     play: boolean;
     setPlay: (value: boolean) => void;
-    volume: number;
-    setVolume: (value: number) => void;
+
 };
 
 
@@ -13,8 +12,7 @@ type ContextType = {
 const ContextApp = createContext<ContextType>({
     play: false,
     setPlay: (value: boolean) => { },
-    volume: 0,
-    setVolume: (value: number) => { },
+
 });
 
 
@@ -23,11 +21,10 @@ const ContextApp = createContext<ContextType>({
 
 const ProviderAuth: React.FC = ({ children }) => {
     const [play, setPlay] = useState<boolean>(false);
-    const [volume, setVolume] = useState<number>(0);
+
     return (
         <ContextApp.Provider value={{
-            play, setPlay,
-            volume, setVolume
+            play, setPlay
 
 
         }}>
@@ -43,15 +40,6 @@ export function usePlayerStream() {
     const { play, setPlay } = infoUser;
     return { play, setPlay };
 }
-
-export function useVolumePlayer() {
-    const infoUser: ContextType = useContext(ContextApp);
-    const { volume, setVolume } = infoUser;
-    return { volume, setVolume };
-}
-
-
-
 
 
 

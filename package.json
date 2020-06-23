@@ -11,22 +11,18 @@
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
-    "@react-native-community/progress-bar-android": "^1.0.3",
-    "@react-native-community/slider": "^3.0.0",
     "@react-navigation/drawer": "^5.8.2",
     "@react-navigation/native": "^5.5.1",
     "react": "16.11.0",
     "react-native": "0.62.2",
+    "react-native-auto-scrolling": "^2.0.0",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-live-stream": "^1.0.1",
     "react-native-music-control": "^0.12.0",
-    "react-native-paper": "^3.10.1",
-    "react-native-progress": "^4.1.2",
     "react-native-reanimated": "^1.9.0",
     "react-native-safe-area-context": "^3.0.6",
     "react-native-screens": "^2.9.0",
-    "react-native-vector-icons": "^6.6.0",
-    "react-native-volume-control": "^1.0.1"
+    "react-native-vector-icons": "^6.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

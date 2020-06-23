@@ -5,6 +5,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import ProviderAuth from '../Context/contextPlayer';
 import Home from '../pages/Home';
+import Info from '../pages/Info';
 import QueriesMusic from '../pages/QueriesMusic';
 import { StatusBar, View } from 'react-native';
 import { DrawerContent } from '../component/Drawer';
@@ -19,6 +20,7 @@ const Router: React.FC = () => {
         <Drawer.Navigator initialRouteName='Home' drawerContent={props => <DrawerContent {...props} />}  >
           <Drawer.Screen name="Home" component={Home} />
           <Drawer.Screen name="QueriesMusic" component={QueriesMusic} />
+          <Drawer.Screen name="Info" component={Info} />
         </Drawer.Navigator>
       </ProviderAuth>
     </NavigationContainer>

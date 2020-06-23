@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
         height: width * 0.15,
         backgroundColor: '#258E4A',
         flexDirection: 'row',
+        alignItems:'center',
         justifyContent: 'space-between',
         paddingHorizontal: width * 0.01
     },
@@ -96,6 +97,17 @@ const styles = StyleSheet.create({
         height: 50,
         width: 50,
         position:'absolute'
+    },
+    gradeLine:{
+        width: '60%',
+        height: width*0.004,
+        backgroundColor:'white'
+    },
+    scrollAuto:{
+        height: width * 0.15,
+        width: '50%',
+        alignItems:'center',
+        justifyContent:'center',
     }
 });
 export default styles;

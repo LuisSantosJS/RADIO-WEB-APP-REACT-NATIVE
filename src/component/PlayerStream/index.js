@@ -2,24 +2,19 @@ import React, { useEffect, useRef } from 'react';
 import { LivePlayer } from "react-native-live-stream";
 import { usePlayerStream, useVolumePlayer } from '../../Context/contextPlayer';
 import MusicControl from 'react-native-music-control';
-import VolumeControl, { VolumeControlEvents } from 'react-native-volume-control';
+
 
 const Stream = () => {
     const { play, setPlay } = usePlayerStream();
     const Live = useRef().current;
-    const { volume, setVolume } = useVolumePlayer();
     useEffect(() => {
 
         MusicControl.enableControl('play', true)
         MusicControl.enableControl('pause', true)
         MusicControl.enableControl('stop', true)
         MusicControl.enableControl('closeNotification', true, { when: 'never' })
-        VolumeControlEvents.addListener(
-            "VolumeChanged", (e) => {
-                setVolume(e);
-            }
-        )
-    }, [volume]);
+
+    }, []);
 
     useEffect(() => {
         MusicControl.enableBackgroundMode(true);
