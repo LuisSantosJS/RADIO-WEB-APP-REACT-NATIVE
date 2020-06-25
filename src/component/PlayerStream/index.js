@@ -32,7 +32,7 @@ const Stream = () => {
         })
         MusicControl.setNowPlaying({
             title: 'AO VIVO',
-            artwork: 'https://firebasestorage.googleapis.com/v0/b/querytenacovid19.appspot.com/o/IMG-20200213-WA0084.jpg?alt=media&token=2bb25723-97cd-4d89-acaa-f99dfc5c4144', // URL or RN's image require()
+            artwork: 'https://firebasestorage.googleapis.com/v0/b/radio-corredor-ifac.appspot.com/o/logosFirewes.png?alt=media&token=f79c76e1-9fac-4a87-9742-00e9469eff10', // URL or RN's image require()
             artist: `${infoMusic}`,
             genre: 'Post-disco, Rhythm and Blues, Funk, Dance-pop',
             duration: 294, 
@@ -40,8 +40,9 @@ const Stream = () => {
             color: 0x30AE5D,
             date: '1983-01-02T00:00:00Z', 
             rating: 32, 
-            notificationIcon: 'https://firebasestorage.googleapis.com/v0/b/querytenacovid19.appspot.com/o/IMG-20200213-WA0084.jpg?alt=media&token=2bb25723-97cd-4d89-acaa-f99dfc5c4144' // Android Only (String), Android Drawable resource name for a custom notification icon
+            notificationIcon: 'https://firebasestorage.googleapis.com/v0/b/radio-corredor-ifac.appspot.com/o/logosFirewes.png?alt=media&token=f79c76e1-9fac-4a87-9742-00e9469eff10' // Android Only (String), Android Drawable resource name for a custom notification icon
         });
+
 
         if (play) {
             MusicControl.updatePlayback({

@@ -25,20 +25,7 @@ const ProviderAuth: React.FC = ({ children }) => {
     const [play, setPlay] = useState<boolean>(false);
     const [infoMusic, setInfoMusic] = useState<string>('');
     const [online, setOnline] = useState<string>('');
-    const loadInfoMusic = () => {
-        fetch('http://stmsrv.com/api-json/sNC26p79YG6vfB--xQr54BGKHN1XwnOW').then(res => {
-            res.json().then(response => {
-                setInfoMusic(String(response.musica_atual));
-                setOnline(String(response.ouvintes_conectados));
-            }).finally(() => {
-                setTimeout(loadInfoMusic, 500);
-            })
-        })
-    }
-    useEffect(() => { }, [infoMusic, online]);
-    useEffect(() => {
-        loadInfoMusic();
-    }, []);
+
     return (
         <ContextApp.Provider value={{
             play, setPlay,

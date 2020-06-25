@@ -7,7 +7,7 @@ import styles from './styles';
 import moment from "moment";
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import { usePlayerStream, useOnlineUsers } from '../../Context/contextPlayer';
+import { usePlayerStream, useOnlineUsers,useNameMusic } from '../../Context/contextPlayer';
 import { TouchableOpacity, FlatList } from 'react-native-gesture-handler';
 import { useMessages } from '../../Context/contextDatabase';
 import Icon from '../../assets/icons/icons';
@@ -31,8 +31,23 @@ const Home: React.FC = () => {
     const [sendTextMessage, setSendTextMessage] = useState<string>('');
     const [stateSend, setStateSend] = useState<boolean>(false)
     const modalRef = useRef<Modalize>(null);
-    const { online } = useOnlineUsers();
+    const { online,setOnline } = useOnlineUsers();
+    const {infoMusic,setInfoMusic} = useNameMusic();
     const { messages } = useMessages();
+    const loadInfoMusic = () => {
+        fetch('http://stmsrv.com/api-json/sNC26p79YG6vfB--xQr54BGKHN1XwnOW').then(res => {
+            res.json().then(response => {
+                setInfoMusic(String(response.musica_atual));
+                setOnline(String(response.ouvintes_conectados));
+            }).finally(() => {
+                setTimeout(loadInfoMusic, 500);
+            })
+        })
+    }
+    useEffect(() => { }, [infoMusic, online]);
+    useEffect(() => {
+        loadInfoMusic();
+    }, []);
 
 
     const onOpen = () => {
