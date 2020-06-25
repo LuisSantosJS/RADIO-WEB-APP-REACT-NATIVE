@@ -10,9 +10,7 @@ export const DrawerContent = (props) => {
         <View style={styles.container}>
             <DrawerContentScrollView {...props}>
                 <View style={styles.containerLogo}>
-                    <Text style={{ color: 'white', fontSize: 20 }}>
-                        Logo
-                    </Text>
+                <Image resizeMode={'contain'} source={require('../../assets/logo1.png')} style={styles.logo} />
                 </View>
                 <View style={styles.gradeLine} />
                 <View style={styles.contain}>

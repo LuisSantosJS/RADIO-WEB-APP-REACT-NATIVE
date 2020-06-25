@@ -40,6 +40,14 @@ const styles = StyleSheet.create({
       
         alignItems:'center'
     },
+    logo: {
+        height: width * 0.4,
+        width: width * 0.4,
+        borderRadius: ((width * 0.4) / 2),
+        backgroundColor: '#258E4A',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
    IconN: {
         width: width * 0.07,
         height: width * 0.07,

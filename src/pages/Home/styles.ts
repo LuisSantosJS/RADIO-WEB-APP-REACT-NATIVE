@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         height: width * 0.15,
         backgroundColor: '#258E4A',
         flexDirection: 'row',
-        alignItems:'center',
+        alignItems: 'center',
         justifyContent: 'space-between',
         paddingHorizontal: width * 0.01
     },
@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
         width: width * 0.55,
         borderRadius: ((width * 0.55) / 2),
         backgroundColor: '#258E4A',
-        justifyContent:'center',
-        alignItems:'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     gridControl: {
         width: '100%',
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         height: width * 0.2,
         justifyContent: 'center',
         alignItems: 'center',
-        alignContent:'center',
+        alignContent: 'center',
         borderRadius: ((width * 0.2) / 2)
     },
     progressBar: {
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         height: width * 0.2,
         alignItems: "center",
         width: '100%',
-        flexDirection:'row',
+        flexDirection: 'row',
         justifyContent: 'space-between'
     },
     viewLiVe: {
@@ -86,28 +86,103 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: width * 0.04
     },
+    text: {
+        color: 'white',
+        fontSize: width * 0.05,
+        fontWeight: '400',
+
+    },
     pointLive: {
         width: width * 0.03,
         height: width * 0.03,
         borderRadius: ((width * 0.03) / 2),
         backgroundColor: 'white'
     },
-    stream:{
-        left: width*3,
+    stream: {
+        left: width * 3,
         height: 50,
         width: 50,
-        position:'absolute'
+        position: 'absolute'
     },
-    gradeLine:{
+    gradeLine: {
         width: '60%',
-        height: width*0.004,
-        backgroundColor:'white'
+        height: width * 0.004,
+        backgroundColor: 'white'
     },
-    scrollAuto:{
+    scrollAuto: {
         height: width * 0.15,
         width: '50%',
-        alignItems:'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    headerSheet: {
+        width: width,
+        height: width * 0.2,
+        flexDirection: 'row',
+        paddingHorizontal: 10,
+        borderTopLeftRadius: width * 0.03,
+        borderTopRightRadius: width * 0.03,
+        backgroundColor: '#30AE5D',
+        justifyContent: 'space-between',
+        alignItems: "center"
+    },
+    containIconSheet: {
+        width: '50%',
+        height: '100%',
+        justifyContent: 'space-around',
+        alignItems: 'center'
+    },
+    icontextHeader: {
+        height: '100%',
+        width: '30%',
+        justifyContent: "space-around",
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+    InputChat:{
+        width: '100%',
+        height: '10%',
+        flexDirection:'row',
+        alignItems:'flex-start',
+        justifyContent:'space-around',
+ 
+    },
+    inputMessage:{
+        height: '70%',
+        width: '80%',
+        backgroundColor:'white',
+        borderRadius: width * 0.04,
+        paddingLeft: 10,
+        elevation: 3,
+        shadowOffset: { width: 5, height: 5 },
+        shadowColor: "black",
+        shadowOpacity: 0.5,
+        shadowRadius: 10,
+    },
+    send:{
+        height: width*0.12,
+        width: width*0.12,
+        borderRadius:width * 0.3,
+        backgroundColor:'#258E4A',
+        alignItems: 'center',
         justifyContent:'center',
-    }
+        elevation: 3,
+        shadowOffset: { width: 5, height: 5 },
+        shadowColor: "black",
+        shadowOpacity: 0.5,
+        shadowRadius: 10,
+    },
+    boxMessage: {
+        minHeight: undefined,
+        maxHeight: undefined,
+        width: width*0.6,
+        padding: 10,
+    },
+    boxMessageView: {
+        minHeight: 70,
+        maxHeight: undefined,
+        width: width,
+
+    },
 });
 export default styles;
