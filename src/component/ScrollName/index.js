@@ -5,7 +5,7 @@ import {
     View,
     Text
 } from 'react-native';
-import { useNameMusic } from '../../../Context/contextPlayer';
+import { useNameMusic } from '../../Context/contextPlayer';
 
 const ScrollName = () => {
     const { infoMusic } = useNameMusic();

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import api from '../../services/api';
 import styles from './styles';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
 import {
@@ -11,9 +11,8 @@ import {
     TouchableOpacity,
     ActivityIndicator
 } from 'react-native';
-import database from '@react-native-firebase/database';
 import Toast from 'react-native-simple-toast';
-import auth from '@react-native-firebase/auth';
+import { useSavedUser, useUserID, useCourse, useNameUser } from '../../Context/contextPlayer';
 import KeyboardH from '../../Functions/Keyboard';
 import { Dimensions } from 'react-native';
 const width = Dimensions.get("window").width;
@@ -21,10 +20,13 @@ const height = Dimensions.get("window").height;
 const QueriesMusic: React.FC = () => {
     const navigation = useNavigation();
     const [isVisibleSubmit, setIsVisibleSubmit] = useState<boolean>(true);
-    const [name, setName] = useState<string>('');
+    const { name } = useNameUser();
+    const { select } = useCourse();
     const [music, setMusic] = useState<string>('');
     const [dedicated, setDedicated] = useState<string>('');
     const keyboardHeigth = KeyboardH();
+    const { userSaved } = useSavedUser();
+    const { userId } = useUserID();
     useEffect(() => {
 
     }, [keyboardHeigth]);
@@ -39,28 +41,32 @@ const QueriesMusic: React.FC = () => {
     }
 
     async function addMusic() {
-        if (name.length == 0) {
-            return Toast.show('Insira seu nome!', Toast.LONG);
+        if (userSaved === false) {
+            Toast.showWithGravity('Precisa se cadastrar primeiro!', Toast.LONG, Toast.TOP);
+            return navigation.navigate('Auth');
         }
         if (music.length == 0) {
-            return Toast.show('Insira uma musica!', Toast.LONG);
+            return Toast.showWithGravity('Insira uma musica!', Toast.LONG, Toast.TOP);
         }
+        const course = select;
         const DATA = {
-            authorID: `${auth().currentUser?.uid}`,
-            author: name,
-            music,
+            userID: userId,
             dedicated,
-            timestamp: database.ServerValue.TIMESTAMP,
+            music,
+            name,
+            course,
             reproduced: false
-
         }
-        const newUserRef = database().ref('music').push();
-        console.log('New record key:', newUserRef.key);
-        await newUserRef.set(DATA);
-        return finisAddMusic();
+        api.post('/musics/create', DATA).then(() => {
+            return finisAddMusic();
+        }).catch(() => {
+            Toast.show('Erro no envio!', Toast.LONG);
+        })
+
+
+
     }
-    function finisAddMusic(){
-        setName('');
+    function finisAddMusic() {
         setDedicated('');
         setMusic('');
         return Toast.show('Pedido enviado!', Toast.LONG);
@@ -81,7 +87,7 @@ const QueriesMusic: React.FC = () => {
                 <TouchableOpacity style={styles.ViewIconHeader} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} >
                     <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/menu.png')} />
                 </TouchableOpacity>
-                <Text style={styles.textLive}>RADIO CORREDOR IFAC</Text>
+                <Text style={styles.textLive}>THE STUDENT VOICE</Text>
                 <TouchableOpacity style={styles.ViewIconHeader} >
                     <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/share.png')} />
                 </TouchableOpacity>
@@ -90,17 +96,6 @@ const QueriesMusic: React.FC = () => {
                 {isVisibleSubmit &&
                     <Text style={[styles.textHeader]}>Pedir Música</Text>
                 }
-
-
-                <View style={[styles.containerViewInput]}>
-                    <Text style={styles.textLive}>Nome</Text>
-                    <TextInput style={styles.input}
-                        placeholder={'Maria Joaquina'}
-                        onTouchStart={() => setIsVisibleSubmit(false)}
-                        value={name}
-                        onChangeText={(e) => setName(e)}
-                    />
-                </View>
                 <View style={[styles.containerViewInput]}>
                     <Text style={styles.textLive}>Nome da música</Text>
                     <TextInput style={styles.input}
@@ -120,9 +115,13 @@ const QueriesMusic: React.FC = () => {
                         onChangeText={(e) => setDedicated(e)}
                     />
                 </View>
-                {isVisibleSubmit &&
+                {isVisibleSubmit && <>
                     <TouchableOpacity activeOpacity={0.4} style={styles.submit} onPress={addMusic}>
                         <Text style={styles.textSubmit}>Enviar</Text>
+                    </TouchableOpacity></>}
+                {!userSaved &&
+                    <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
+                        <Text style={[styles.textLive, { color: 'white' }]}>Você precisa se cadastrar</Text>
                     </TouchableOpacity>}
                 <View style={{ width: '100%', height: keyboardHeigth }} />
 

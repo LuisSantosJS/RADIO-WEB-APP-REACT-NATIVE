@@ -39,49 +39,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    gridControl: {
-        width: '100%',
-        height: width * 0.3,
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        alignItems: 'center'
-    },
-    itemGridControl: {
-        width: width * 0.2,
-        height: width * 0.2,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
-        borderRadius: ((width * 0.2) / 2)
-    },
-    progressBar: {
-        height: width * 0.02,
-        backgroundColor: 'white',
-        width: '50%'
-    },
-    indicadorProgress: {
-        width: width * 0.05,
-        height: width * 0.05,
-        top: - ((width * 0.05) / 3),
-        borderRadius: ((width * 0.05) / 2),
-        backgroundColor: 'red'
-    },
-    viewTouchProgress: {
-        height: width * 0.2,
-        alignItems: "center",
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    viewLiVe: {
-        width: width * 0.3,
-        height: width * 0.1,
-        borderRadius: ((width * 0.08) / 2),
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-        backgroundColor: 'red'
-    },
     textLive: {
         color: 'white',
         fontSize: width * 0.04
@@ -92,56 +49,9 @@ const styles = StyleSheet.create({
         fontWeight: '400',
 
     },
-    pointLive: {
-        width: width * 0.03,
-        height: width * 0.03,
-        borderRadius: ((width * 0.03) / 2),
-        backgroundColor: 'white'
-    },
-    stream: {
-        left: width * 3,
-        height: 50,
-        width: 50,
-        position: 'absolute'
-    },
-    gradeLine: {
-        width: '60%',
-        height: width * 0.004,
-        backgroundColor: 'white'
-    },
-    scrollAuto: {
-        height: width * 0.15,
-        width: '50%',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    headerSheet: {
-        width: width,
-        height: width * 0.2,
-        flexDirection: 'row',
-        paddingHorizontal: 10,
-        borderTopLeftRadius: width * 0.03,
-        borderTopRightRadius: width * 0.03,
-        backgroundColor: '#30AE5D',
-        justifyContent: 'space-between',
-        alignItems: "center"
-    },
-    containIconSheet: {
-        width: '55%',
-        height: '100%',
-        justifyContent: 'space-around',
-        alignItems: 'center'
-    },
-    icontextHeader: {
-        height: '100%',
-        width: '30%',
-        justifyContent: "space-around",
-        alignItems: 'center',
-        flexDirection: 'row'
-    },
     InputChat:{
         width: '100%',
-        height: '10%',
+        height: height*0.1,
         flexDirection:'row',
         alignItems:'flex-start',
         justifyContent:'space-around',

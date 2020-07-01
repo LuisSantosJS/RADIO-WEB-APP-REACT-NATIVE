@@ -19,7 +19,7 @@ const Info: React.FC = () => {
                 <TouchableOpacity style={styles.ViewIconHeader} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} >
                     <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/menu.png')} />
                 </TouchableOpacity>
-                <Text style={styles.textLive}>RADIO CORREDOR IFAC</Text>
+                <Text style={styles.textLive}>THE STUDENT VOICE</Text>
                 <TouchableOpacity style={styles.ViewIconHeader} >
                     <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/share.png')} />
                 </TouchableOpacity>
