@@ -56,25 +56,21 @@ const ProviderAuth: React.FC = ({ children }) => {
     const [select, setSelect] = useState<string>('REDES DE COMPUTADORES');
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
-    const loadInfoMusic = () => {
-        fetch('http://stmsrv.com/api-json/sNC26p79YG6vfB--xQr54BGKHN1XwnOW').then(res => {
-            res.json().then(response => {
-                setInfoMusic(String(response.musica_atual));
-                setOnline(String(response.ouvintes_conectados));
-            }).finally(() => {
-                setTimeout(loadInfoMusic, 500);
-            })
-        })
-    }
 
 
 
     useEffect(() => { }, [infoMusic, online]);
 
-
     useEffect(() => {
-        loadInfoMusic();
+        async function loadMusic() {
+            const response = await fetch('http://stmsrv.com/api-json/sNC26p79YG6vfB--xQr54BGKHN1XwnOW')
+            const res = await response.json();
+            setInfoMusic(String(res.musica_atual));
+            setOnline(String(res.ouvintes_conectados));
 
+            return setTimeout(loadMusic, 1000)
+        }
+        loadMusic();
     }, []);
 
     useEffect(() => {
@@ -88,15 +84,14 @@ const ProviderAuth: React.FC = ({ children }) => {
                     setSelect(JSON.parse(jsonValue).course);
                     setName(JSON.parse(jsonValue).name);
                     setUserSaved(JSON.parse(jsonValue).userSaved);
-
                 }
             } catch (e) {
                 // error reading value
                 console.log('error load user')
             }
         }
-            getData();
-        
+        getData();
+
     }, [])
 
 

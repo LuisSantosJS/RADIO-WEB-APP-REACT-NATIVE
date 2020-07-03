@@ -8,7 +8,7 @@ import {
 import { useNameMusic } from '../../Context/contextPlayer';
 
 const ScrollName = () => {
-    const { infoMusic } = useNameMusic();
+    const { infoMusic, setInfoMusic } = useNameMusic();
     useEffect(()=>{},[infoMusic])
     return (
         <AutoScrolling styles={styles.scrollAuto}>
