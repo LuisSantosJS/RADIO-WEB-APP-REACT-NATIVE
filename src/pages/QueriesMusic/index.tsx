@@ -41,6 +41,10 @@ const QueriesMusic: React.FC = () => {
     }
 
     async function addMusic() {
+        if (userId === 0) {
+            Toast.showWithGravity('Faça login primeiro!', Toast.LONG, Toast.TOP);
+            return navigation.navigate('Auth')
+        }
         if (userSaved === false) {
             Toast.showWithGravity('Precisa se cadastrar primeiro!', Toast.LONG, Toast.TOP);
             return navigation.navigate('Auth');

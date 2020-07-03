@@ -64,11 +64,11 @@ const Auth: React.FC = () => {
                 setRecover(true);
                 return Toast.showWithGravity('Usuario existente', Toast.LONG, Toast.TOP);
             }
-            setUserId(e.data[0].id);
+            setUserId(Number(e.data.id));
             setUserSaved(true);
-            setSelect(String(e.data[0].course));
-            setName(e.data[0].name);
-            setEmail(e.data[0].email)
+            setSelect(String(e.data.course));
+            setName(e.data.name);
+            setEmail(e.data.email)
             Toast.showWithGravity('Usuario Criado', Toast.LONG, Toast.TOP);
             return finish()
         }).catch(() => {
@@ -122,11 +122,11 @@ const Auth: React.FC = () => {
             if (e.data.message == "validator inválido") {
                 return Toast.showWithGravity('Código inválido', Toast.LONG, Toast.TOP);
             }
-            setUserId(e.data[0].id);
+            setUserId(Number(e.data.id));
             setUserSaved(true);
-            setSelect(String(e.data[0].course));
-            setName(e.data[0].name);
-            setEmail(e.data[0].email)
+            setSelect(String(e.data.course));
+            setName(e.data.name);
+            setEmail(e.data.email)
             Toast.showWithGravity('Usuário Recuperado', Toast.LONG, Toast.TOP);
             return finish()
         }).catch(() => {

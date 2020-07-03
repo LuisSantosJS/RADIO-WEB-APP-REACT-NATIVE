@@ -12,60 +12,67 @@ import {
 import io from "socket.io-client";
 import Icon from '../../assets/icons/icons';
 import styles from './styles';
+import Toast from 'react-native-simple-toast';
 import api from '../../services/api';
-import { useUserID, useNameUser, } from '../../Context/contextPlayer';
-
+import { useUserID, useNameUser, useCourse } from '../../Context/contextPlayer';
 import { FlatList } from 'react-native-gesture-handler';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
-import { now } from 'moment';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 interface ITEM {
+    id: number,
     userID: number,
-    text: string,
-    name: string
-    data: string
+    name: string,
+    msm: string,
+    course: string
 }
 
 const Chat: React.FC = () => {
     const navigation = useNavigation();
     const [messages, setMessages] = useState<ITEM[]>([]);
     const { name } = useNameUser();
-    const [data, setData] = useState<ITEM[]>([]);
+    const { select } = useCourse();
     const { userId } = useUserID();
     const [sendTextMessage, setSendTextMessage] = useState<string>('');
     const socket = io("http://192.168.100.99:3333");
     useEffect(() => {
-        api.get('/messages').then(res => {
-            setMessages(res.data)
-        }).then(()=>{
-            socket.on("chat message", (msg: ITEM) => {
-                console.log(msg);
-                setMessages(messages =>[...messages, msg]);
-            });
+        api.get('messages').then(res => {
+            setMessages(res.data);
         })
 
+        loadMessages();
     }, [])
+
+    function loadMessages() {
+        socket.on('chat', (msg:[]) => {
+            setMessages(msg)
+            console.log(msg)
+        });
+    }
     function submitText() {
-        if(sendTextMessage.length !== 0){
-            socket.emit('chat message', {
+        if (userId === 0) {
+          Toast.showWithGravity('Faça login primeiro!', Toast.LONG, Toast.TOP);
+          return  navigation.navigate('Auth')
+        }
+        if (sendTextMessage.length !== 0) {
+            socket.emit('chat', {
                 name: name,
                 userID: userId,
-                text: sendTextMessage
+                msm: sendTextMessage,
+                course: select
             });
             setSendTextMessage('');
         }
     }
-    useEffect(() => { }, [data])
-    useEffect(() => {}, [messages])
+    useEffect(() => { }, [messages])
     function RenderMessage(item: ITEM, index: number) {
         if (item.userID !== userId) {
             return (
                 <View key={index} style={{ width: width, minHeight: width * 0.12, maxHeight: undefined, flexDirection: 'row', paddingBottom: width * 0.05 }}>
                     <View style={{ height: '100%', width: '60%', flexDirection: 'row', paddingHorizontal: width * 0.02 }}>
                         <View style={{ backgroundColor: 'forestgreen', padding: width * 0.02, justifyContent: 'center', borderTopRightRadius: width * 0.021, borderBottomLeftRadius: width * 0.021 }}>
-                            <Text style={{ color: 'white', fontSize: width * 0.04 }}>{item.text}</Text>
+                            <Text style={{ color: 'white', fontSize: width * 0.04 }}>{item.msm}</Text>
                         </View>
                     </View>
                 </View>
@@ -76,7 +83,7 @@ const Chat: React.FC = () => {
                 <View key={index} style={{ width: width, minHeight: width * 0.12, maxHeight: undefined, flexDirection: 'row-reverse', paddingBottom: width * 0.05 }}>
                     <View style={{ height: '100%', width: '60%', flexDirection: 'row-reverse', paddingHorizontal: width * 0.02 }}>
                         <View style={{ backgroundColor: '#E5E5E5', padding: width * 0.02, justifyContent: 'center', borderTopLeftRadius: width * 0.021, borderBottomRightRadius: width * 0.021 }}>
-                            <Text style={{ color: 'black', fontSize: width * 0.04 }}>{item.text}</Text>
+                            <Text style={{ color: 'black', fontSize: width * 0.04 }}>{item.msm}</Text>
                         </View>
                     </View>
                 </View>
@@ -104,7 +111,7 @@ const Chat: React.FC = () => {
                     style={{ flex: 1 }}
                     data={messages}
                     inverted
-                    keyExtractor={(item: ITEM) => String(item.text + item.name + item.userID.toPrecision() + (new Date).getTime() + Date.now())}
+                    keyExtractor={(item: ITEM) => String(item.id)}
                     renderItem={({ item, index }) => RenderMessage(item, index)}
                     ListHeaderComponent={() => <View style={{ width: width, height: width * 0.1 }} />}
                     ListFooterComponent={() => <View style={{ width: width, height: width * 0.1 }} />}

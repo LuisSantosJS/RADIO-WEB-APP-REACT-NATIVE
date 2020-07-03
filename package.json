@@ -31,6 +31,7 @@
     "react-native-screens": "^2.9.0",
     "react-native-simple-toast": "^1.1.2",
     "react-native-vector-icons": "^6.6.0",
+    "realm": "^6.0.2",
     "socket.io-client": "^2.3.0"
   },
   "devDependencies": {

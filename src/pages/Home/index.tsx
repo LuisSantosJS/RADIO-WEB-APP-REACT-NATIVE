@@ -14,13 +14,7 @@ import ScrollName from '../../component/ScrollName';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
-interface ITEM {
-    id: number,
-    text: string,
-    name: string,
-    created_at: number,
-    userID: number
-}
+
 
 const Home: React.FC = () => {
     const navigation = useNavigation();
@@ -28,8 +22,6 @@ const Home: React.FC = () => {
     const [namePlayPause, setNamePlayPause] = useState<string>('play');
     const [hearth, setHearth] = useState<boolean>(false);
     const [hearthName, setHearthName] = useState<string>('hearto');
-    const [sendTextMessage, setSendTextMessage] = useState<string>('');
-    const [stateSend, setStateSend] = useState<boolean>(false)
     const modalRef = useRef<Modalize>(null);
     const { online, setOnline } = useOnlineUsers();
     const { infoMusic, setInfoMusic } = useNameMusic();
@@ -43,27 +35,6 @@ const Home: React.FC = () => {
     };
     useEffect(() => { }, [online])
 
-    useEffect(() => {
-
-    }, []);
-
-    function sendMessage() {
-        if (sendTextMessage.length !== 0) {
-
-        }
-        return finishSendMessage()
-    }
-
-    function finishSendMessage() {
-        setSendTextMessage('');
-    }
-
-    const renderItem = (item: ITEM) => (
-        <View >
-            <Text >{item.name}</Text>
-            <Text>{item.text}</Text>
-        </View>
-    );
 
     function handlePlayPause() {
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://192.168.100.99:3333'
+    baseURL: 'http://radiocampusifac-com.umbler.net'
 }); 
 
 export default api;

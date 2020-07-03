@@ -67,31 +67,38 @@ const ProviderAuth: React.FC = ({ children }) => {
         })
     }
 
-    const getData = async () => {
-        try {
-            const jsonValue = await AsyncStorage.getItem('@user')
-            if(jsonValue !== null){
-                console.log(JSON.parse(jsonValue));
-                setUserId(Number(JSON.parse(jsonValue).userId));
-                setEmail(String(JSON.parse(jsonValue).email));
-                setSelect(String(JSON.parse(jsonValue).course));
-                setName(String(JSON.parse(jsonValue).name));
-                setUserSaved(Boolean(JSON.parse(jsonValue).userSaved));
-                
-            }
-        } catch (e) {
-            // error reading value
-        }
-    }
+
 
     useEffect(() => { }, [infoMusic, online]);
 
 
     useEffect(() => {
         loadInfoMusic();
-        getData();
+
     }, []);
- 
+
+    useEffect(() => {
+        async function getData() {
+            try {
+                const jsonValue = await AsyncStorage.getItem('@user')
+                if (jsonValue !== null) {
+                    console.log(JSON.parse(jsonValue));
+                    setUserId(JSON.parse(jsonValue).userId);
+                    setEmail(JSON.parse(jsonValue).email);
+                    setSelect(JSON.parse(jsonValue).course);
+                    setName(JSON.parse(jsonValue).name);
+                    setUserSaved(JSON.parse(jsonValue).userSaved);
+
+                }
+            } catch (e) {
+                // error reading value
+                console.log('error load user')
+            }
+        }
+            getData();
+        
+    }, [])
+
 
     return (
         <ContextApp.Provider value={{
