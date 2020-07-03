@@ -37,10 +37,6 @@ const Chat: React.FC = () => {
     const [sendTextMessage, setSendTextMessage] = useState<string>('');
     const socket = io("http://192.168.100.99:3333");
     useEffect(() => {
-        api.get('messages').then(res => {
-            setMessages(res.data);
-        })
-
         loadMessages();
     }, [])
 

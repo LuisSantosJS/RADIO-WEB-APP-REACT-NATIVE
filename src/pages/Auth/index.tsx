@@ -19,14 +19,15 @@ import { useUserID, useSavedUser, useEmail, useNameUser, useCourse, useControlSa
 const Auth: React.FC = () => {
     const navigation = useNavigation();
     const [isVisibleSubmit, setIsVisibleSubmit] = useState<boolean>(true);
-    const { select, setSelect } = useCourse();
-    const { name, setName } = useNameUser();
+    const [select, setSelect] = useState<string>('REDES DE COMPUTADORES');
+    const [name, setName] = useState<string>('');
+    const [aguarde, setAguarde] = useState<boolean>(false);
     const [recover, setRecover] = useState<boolean>(false);
-    const { email, setEmail } = useEmail();
+    const [email, setEmail] = useState('');
     const [hash, setHash] = useState<string>('');
-    const { userId, setUserId } = useUserID();
-    const { setControlSave } = useControlSave();
-    const { setUserSaved } = useSavedUser();
+    const [userId, setUserId] = useState<number>(0);
+
+    const [userSaved, setUserSaved] = useState<boolean>(false);
     const [isCode, setIsCode] = useState<boolean>(false);
     const [code, setCode] = useState<string>('');
     function handleKeyboardHide() {
@@ -46,50 +47,70 @@ const Auth: React.FC = () => {
         };
     }, []);
 
-    function handleSubmit() {
+    async function handleSubmit() {
+        setAguarde(true)
         const validEmail = EmailValidator.validate(email);
         if (!validEmail) {
+            setAguarde(false)
             return Toast.showWithGravity('Insira um email válido!', Toast.LONG, Toast.TOP);
         }
         if (name.length == 0) {
+            setAguarde(false)
             return Toast.showWithGravity('Insira seu nome!', Toast.LONG, Toast.TOP);
         }
-        const DATA = {
-            name,
-            email,
-            course: select
-        }
-        api.post('/users/create', DATA).then((e) => {
-            if (e.data.message == 'email existente') {
+
+        try {
+            const DATA = {
+                name,
+                email,
+                course: select
+            }
+            const res = await api.post('users/create', DATA);
+            if (res.data.message == 'email existente') {
                 setRecover(true);
+                setAguarde(false)
                 return Toast.showWithGravity('Usuario existente', Toast.LONG, Toast.TOP);
             }
-            setUserId(Number(e.data.id));
+            console.log('dados', res.data)
+            setUserId(Number(res.data.id));
             setUserSaved(true);
-            setSelect(String(e.data.course));
-            setName(e.data.name);
-            setEmail(e.data.email)
+            setSelect(String(res.data.course));
+            setName(res.data.name);
+            setEmail(res.data.email)
             Toast.showWithGravity('Usuario Criado', Toast.LONG, Toast.TOP);
             return finish()
-        }).catch(() => {
-            return Toast.showWithGravity('Falha ao criar usuário', Toast.LONG, Toast.TOP);
-        })
+
+        }
+        catch (err) {
+            setAguarde(false)
+            return Toast.showWithGravity('Ocorreu um erro!', Toast.LONG, Toast.TOP);
+        }
+
+
     }
-    function sendEmail() {
+    async function sendEmail() {
+        setAguarde(true)
         if (email.length == 0) {
+            setAguarde(false)
             return Toast.showWithGravity('Insira seu email', Toast.LONG, Toast.TOP);
         }
         setIsCode(true);
         Toast.showWithGravity('Verifique seu email', Toast.LONG, Toast.TOP);
-        const DATA = {
-            email: email
-        }
-        api.post('/users/email_send', DATA).then(e => {
-            setHash(e.data.hash);
+        try {
+            const DATA = {
+                email: email
+            }
+            const res = await api.post('users/email_send', DATA);
+            setHash(res.data.hash);
+            if (res.data.error == true) {
+                return Toast.showWithGravity('ERRO AO ENVIAR EMAIL', Toast.LONG, Toast.TOP);
+            }
             return Toast.showWithGravity('Verifique seu email', Toast.LONG, Toast.TOP);
-        }).catch(() => {
+        } catch (err) {
+            setAguarde(false)
             return Toast.showWithGravity('Ocorreu um erro ao enviar email', Toast.LONG, Toast.TOP);
-        })
+        }
+
     }
 
     async function finish() {
@@ -107,31 +128,40 @@ const Auth: React.FC = () => {
         } catch (e) {
             console.log('errroorororoorr')
         }
+        return  setAguarde(false)
     }
 
-    function validateEmail() {
+    async function validateEmail() {
+        setAguarde(true)
         if (code.length == 0) {
+            setAguarde(false)
             return Toast.showWithGravity('Insira o código', Toast.LONG, Toast.TOP);
         }
-        const DATA = {
-            hash: hash,
-            email: email,
-            code: code.toLowerCase()
-        };
-        api.post('/users/validation', DATA).then(e => {
-            if (e.data.message == "validator inválido") {
+        try {
+            const DATA = {
+                hash: hash,
+                email: email,
+                code: code.toLowerCase()
+            };
+            const res = await api.post('users/validation', DATA)
+            if (res.data.message == "validator inválido") {
+                setAguarde(false)
                 return Toast.showWithGravity('Código inválido', Toast.LONG, Toast.TOP);
             }
-            setUserId(Number(e.data.id));
+            console.log('dados', res.data)
+            setUserId(Number(res.data.id));
             setUserSaved(true);
-            setSelect(String(e.data.course));
-            setName(e.data.name);
-            setEmail(e.data.email)
+            setSelect(String(res.data.course));
+            setName(res.data.name);
+            setEmail(res.data.email)
             Toast.showWithGravity('Usuário Recuperado', Toast.LONG, Toast.TOP);
-            return finish()
-        }).catch(() => {
-            return Toast.showWithGravity('Ocorreu um erro ao enviar email', Toast.LONG, Toast.TOP);
-        })
+            return finish();
+        }
+        catch{
+            setAguarde(false)
+            return Toast.showWithGravity('Ocorreu um erro!', Toast.LONG, Toast.TOP);
+        }
+
     }
     if (isCode) {
         return (
@@ -155,10 +185,10 @@ const Auth: React.FC = () => {
                         />
                     </View>
 
-
-                    <TouchableOpacity activeOpacity={0.4} style={styles.submit} onPress={validateEmail} >
+                    <TouchableOpacity disabled={aguarde} activeOpacity={0.4} style={styles.submit} onPress={validateEmail} >
                         <Text style={styles.textSubmit}>Verificar</Text>
                     </TouchableOpacity>
+                    {aguarde && <Text>Aguarde...</Text>}
                 </View>
 
             </>
@@ -208,9 +238,10 @@ const Auth: React.FC = () => {
                         </View>
                     </View>
 
-                    <TouchableOpacity activeOpacity={0.4} style={styles.submit} onPress={handleSubmit}>
+                    <TouchableOpacity disabled={aguarde} activeOpacity={0.4} style={styles.submit} onPress={handleSubmit}>
                         <Text style={styles.textSubmit}>Cadastrar</Text>
                     </TouchableOpacity></>}
+                {aguarde && <Text>Aguarde...</Text>}
                 {recover && <TouchableOpacity onPress={sendEmail}><Text style={styles.textLive}>Recuperar usuário</Text></TouchableOpacity>}
             </View>
 
