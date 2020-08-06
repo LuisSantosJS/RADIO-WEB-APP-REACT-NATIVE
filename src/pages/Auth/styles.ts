@@ -58,6 +58,17 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         borderRadius:((width*0.05)/2)
     },
+    textHeader:{
+        color: 'white',
+        fontSize: width * 0.1
+    },
+    containerInputsVefi:{
+        width: width,
+        height: '40%',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        alignContent:'center'
+    },
     submit:{
         width: width*0.7,
         height: width*0.18,

@@ -37,8 +37,11 @@ const Chat: React.FC = () => {
     const { select } = useCourse();
     const { userId } = useUserID();
     const [sendTextMessage, setSendTextMessage] = useState<string>('');
-    const socket = io("http://192.168.100.99:3000");
+    const socket = io("http://radiocampusapi.com.br");
     useEffect(() => {
+        api.get('/messages').then(res => {
+            setMessages(res.data);
+        })
         loadMessages();
     }, [])
 
@@ -54,6 +57,7 @@ const Chat: React.FC = () => {
             return navigation.navigate('Auth')
         }
         if (sendTextMessage.length !== 0) {
+            console.log('emit')
             socket.emit('chat', {
                 name: name,
                 userID: userId,
@@ -70,7 +74,7 @@ const Chat: React.FC = () => {
                 <View key={index} style={{ width: width, minHeight: width * 0.12, maxHeight: undefined, flexDirection: 'row', paddingBottom: width * 0.05 }}>
                     <View style={{ height: '100%', width: '60%', flexDirection: 'row', paddingHorizontal: width * 0.02 }}>
                         <View style={{ backgroundColor: 'forestgreen', padding: width * 0.02, justifyContent: 'center', borderTopRightRadius: width * 0.021, borderBottomLeftRadius: width * 0.021 }}>
-                            <Text style={{ color: 'white', fontSize: width * 0.04 }}>{item.msm}</Text>
+                            <Text style={{ color: 'white', fontSize: width * 0.04 }}>{item.name}: {item.msm}</Text>
                         </View>
                     </View>
                 </View>
@@ -96,7 +100,7 @@ const Chat: React.FC = () => {
                 <TouchableOpacity style={styles.ViewIconHeader} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} >
                     <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/menu.png')} />
                 </TouchableOpacity>
-                <Text style={styles.textLive}>MENSAGENS</Text>
+                <Text style={styles.textLive}>CHAT AO VIVO</Text>
                 <TouchableOpacity style={styles.ViewIconHeader}>
                     <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/share.png')} />
                 </TouchableOpacity>

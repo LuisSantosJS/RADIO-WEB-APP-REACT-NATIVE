@@ -1,7 +1,8 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
+import * as Updates from 'expo-updates'
 import api from '../services/api';
-
+import Toast from 'react-native-simple-toast';
 type ContextType = {
     play: boolean;
     setPlay: (value: boolean) => void;
@@ -60,7 +61,7 @@ const ContextApp = createContext<ContextType>({
 
 const ProviderAuth: React.FC = ({ children }) => {
     const [play, setPlay] = useState<boolean>(false);
-    const [infoMusic, setInfoMusic] = useState<string>('CARREGANDO...');
+    const [infoMusic, setInfoMusic] = useState<string>('RÁDIO CAMPUS IFAC - SEJA BEM VINDO');
     const [online, setOnline] = useState<string>('');
     const [capaMusica, setCapaMusica] = useState<string>('nulo');
     const [controlSave, setControlSave] = useState<boolean>(false);
@@ -72,7 +73,19 @@ const ProviderAuth: React.FC = ({ children }) => {
     const [email, setEmail] = useState<string>('');
     const [numberLikes, setNumberLikes] = useState<number>(0);
 
+    useEffect(()=>{
+        async function updateApp(){
+            const {isAvailable} = await Updates.checkForUpdateAsync();
 
+            if(isAvailable){
+                Toast.showWithGravity('Aplicando Correções...', Toast.LONG, Toast.TOP)
+                await Updates.fetchUpdateAsync();
+                await Updates.reloadAsync();
+            }
+
+        }
+        updateApp();
+    },[])
 
     useEffect(() => { }, [infoMusic, online, numberLikes, capaMusica]);
 
@@ -83,7 +96,7 @@ const ProviderAuth: React.FC = ({ children }) => {
             setInfoMusic(String(res.musica_atual));
             setOnline(String(res.ouvintes_conectados));
             setCapaMusica(String(res.capa_musica));
-            console.log('online', res.ouvintes_conectados);
+            //console.log('online', res.ouvintes_conectados);
             api.get('/users/likes').then(likes => {
                 setNumberLikes(likes.data.likes);
             })

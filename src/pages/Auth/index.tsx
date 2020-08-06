@@ -98,6 +98,11 @@ const Auth: React.FC = () => {
     }
 
     const saveUser = async (res: any, type: string) => {
+        if(res.id == null){
+            console.log(res)
+            return Toast.showWithGravity('Ocorreu um erro', Toast.LONG, Toast.TOP);
+
+        }
         const value = {
             name,
             course: select,
@@ -129,6 +134,7 @@ const Auth: React.FC = () => {
         api.post('/users/create', {
             course: select,
             email: email.toLowerCase(),
+            like: false,
             name
         }).then(res => {
             console.log(res.data);
@@ -159,6 +165,7 @@ const Auth: React.FC = () => {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.container}>
+                    <View style={styles.containerInputsVefi}>
                     <View style={[styles.containerViewInput]}>
                         <Text style={styles.textLive}>Código</Text>
                         <TextInput style={styles.input}
@@ -171,6 +178,7 @@ const Auth: React.FC = () => {
                     <TouchableOpacity disabled={aguarde} activeOpacity={0.4} style={styles.submit} onPress={() => validationEmail()} >
                         <Text style={styles.textSubmit}>Verificar</Text>
                     </TouchableOpacity>
+                    </View>
                     {aguarde && <Text>Aguarde...</Text>}
                 </View>
 
@@ -190,6 +198,7 @@ const Auth: React.FC = () => {
                 </TouchableOpacity>
             </View>
             <View style={styles.container}>
+            <Text style={[styles.textHeader]}>Cadastro</Text>
                 <View style={[styles.containerViewInput]}>
                     <Text style={styles.textLive}>Nome</Text>
                     <TextInput style={styles.input}

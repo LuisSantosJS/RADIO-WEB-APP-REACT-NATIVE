@@ -129,7 +129,6 @@ const QueriesMusic: React.FC = () => {
                     <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
                         <Text style={[styles.textLive, { color: 'white' }]}>Você precisa se cadastrar</Text>
                     </TouchableOpacity>}
-                <View style={{ width: '100%', height: keyboardHeigth }} />
 
             </View>
         </>

@@ -15,7 +15,6 @@ import ScrollName from '../../component/ScrollName';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 import KeyboardH from '../../Functions/Keyboard';
-
 interface ITEM {
     id: number,
     userID: number,
@@ -31,14 +30,14 @@ const Home: React.FC = () => {
     const { play, setPlay } = usePlayerStream();
     const { userId } = useUserID();
     const KeyboardHeight = KeyboardH();
-    const {namePlayPause, setNamePlayPause} = usePlayPause();
+    const { namePlayPause, setNamePlayPause } = usePlayPause();
     const [hearth, setHearth] = useState<boolean>(false);
     const [hearthName, setHearthName] = useState<string>('hearto');
-    const { online} = useOnlineUsers();
+    const { online } = useOnlineUsers();
     const { infoMusic, setInfoMusic } = useNameMusic();
     const { numberLikes } = useLikes();
     const [sendTextMessage, setSendTextMessage] = useState<string>('');
-    const {capaMusica} = useCapaMusica();
+    const { capaMusica } = useCapaMusica();
 
     useEffect(() => {
         TrackPlayer.addEventListener('remote-play', () => setNamePlayPause('pause'));
@@ -48,9 +47,9 @@ const Home: React.FC = () => {
                 TrackPlayer.add({
                     id: 'corredor',
                     url: "https://player.xcast.com.br/proxy/11978",
-                    title: `${infoMusic}`,
+                    title: `RADIO CAMPUS IFAC`,
                     artist: 'AO VIVO',
-                    artwork: 'https://firebasestorage.googleapis.com/v0/b/radio-corredor-ifac.appspot.com/o/logosFirewes.png?alt=media&token=f79c76e1-9fac-4a87-9742-00e9469eff10'
+                    artwork: 'https://firebasestorage.googleapis.com/v0/b/radio-corredor-ifac.appspot.com/o/Icon-marketing-1024x1024.png?alt=media&token=9cccf32f-ece0-49d5-bdd9-47ca90889dc0'
                 }).then(() => {
                     TrackPlayer.updateOptions({
                         ratingType: TrackPlayer.RATING_5_STARS,
@@ -71,34 +70,10 @@ const Home: React.FC = () => {
         loadMusic();
 
 
+
     }, [])
 
 
-    function RenderMessage(item: ITEM, index: number) {
-        if (item.userID !== userId) {
-            return (
-                <View key={index} style={{ width: width, minHeight: width * 0.12, maxHeight: undefined, flexDirection: 'row', paddingBottom: width * 0.05 }}>
-                    <View style={{ height: '100%', width: '60%', flexDirection: 'row', paddingHorizontal: width * 0.02 }}>
-                        <View style={{ backgroundColor: 'forestgreen', padding: width * 0.02, justifyContent: 'center', borderTopRightRadius: width * 0.021, borderBottomLeftRadius: width * 0.021 }}>
-                            <Text style={{ color: 'white', fontSize: width * 0.04 }}>{item.msm}</Text>
-                        </View>
-                    </View>
-                </View>
-            );
-        }
-        else {
-            return (
-                <View key={index} style={{ width: width, minHeight: width * 0.12, maxHeight: undefined, flexDirection: 'row-reverse', paddingBottom: width * 0.05 }}>
-                    <View style={{ height: '100%', width: '60%', flexDirection: 'row-reverse', paddingHorizontal: width * 0.02 }}>
-                        <View style={{ backgroundColor: '#E5E5E5', padding: width * 0.02, justifyContent: 'center', borderTopLeftRadius: width * 0.021, borderBottomRightRadius: width * 0.021 }}>
-                            <Text style={{ color: 'black', fontSize: width * 0.04 }}>{item.msm}</Text>
-                        </View>
-                    </View>
-                </View>
-            );
-        }
-
-    }
 
 
     const onOpen = () => {
@@ -126,7 +101,7 @@ const Home: React.FC = () => {
     }, [userId])
 
     function handlePlayPause() {
-       
+
         setPlay(!play);
         if (play === false) {
             TrackPlayer.play();
@@ -157,14 +132,9 @@ const Home: React.FC = () => {
         }
 
     }
-    function submitText() {
-        if (userId === 0) {
-            Toast.showWithGravity('Faça login primeiro!', Toast.LONG, Toast.TOP);
-            return navigation.navigate('Auth');
-        }
-    }
 
-    function onOpenChat(){
+
+    function onOpenChat() {
         if (userId === 0) {
             Toast.showWithGravity('Faça login primeiro!', Toast.LONG, Toast.TOP);
             return navigation.navigate('Auth')
@@ -183,6 +153,7 @@ const Home: React.FC = () => {
                 <TouchableOpacity style={styles.ViewIconHeader} >
                     <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/share.png')} />
                 </TouchableOpacity>
+
             </View>
 
             <View style={styles.container}>
@@ -191,7 +162,7 @@ const Home: React.FC = () => {
                     <View style={styles.pointLive} />
                 </View>
 
-                <Image source={ capaMusica !== 'nulo' ? { uri: capaMusica } : require('../../assets/logo1.png')} style={styles.logo} />
+                <Image source={capaMusica !== 'nulo' ? { uri: capaMusica } : require('../../assets/logo1.png')} style={styles.logo} />
 
 
                 <View style={styles.scrollAuto}>
@@ -214,10 +185,10 @@ const Home: React.FC = () => {
                 ref={modalRef}
                 HeaderComponent={() =>
                     <View style={styles.headerSheet} >
-                        <Text style={styles.text}> Mensagens</Text>
+                        <Text style={styles.text}> CHAT AO VIVO</Text>
                         <View style={[styles.containIconSheet, { flexDirection: 'row' }]}>
                             <View style={styles.icontextHeader}>
-                                <Icon.MaterialIcons name={'visibility'}  color={'white'}  size={width * 0.09} />
+                                <Icon.MaterialIcons name={'visibility'} color={'white'} size={width * 0.09} />
                                 <Text style={styles.text}>{online}</Text>
                             </View>
                             <View style={styles.icontextHeader}>

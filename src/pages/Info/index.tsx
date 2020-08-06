@@ -29,7 +29,7 @@ const Info: React.FC = () => {
             </View>
             <View style={styles.container}>
                 <Image source={require('../../assets/logo1.png')} style={styles.logo} />
-                <Text style={styles.copyrigth}>© 2020 RADIO CORREDOR IFAC</Text>
+                <Text style={styles.copyrigth}>© 2020 RADIO CAMPUS IFAC</Text>
                 <View style={styles.gradeLine} />
 
                 <View style={{ width: '100%', height: '8%', justifyContent: 'space-between', alignItems: 'center' }}>
