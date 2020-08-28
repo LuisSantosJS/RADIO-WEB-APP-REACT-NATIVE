@@ -4,9 +4,14 @@
   "expo": {
     "name": "radiocorredorifac",
     "slug": "radiocorredorifac",
-    "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android": {
+      "versionCode": 1
+    },
+    "ios": {
+      "buildNumber": "1"
+    }
   }
 }

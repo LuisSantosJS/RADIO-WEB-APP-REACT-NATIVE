@@ -42,15 +42,16 @@ const Chat: React.FC = () => {
         api.get('/messages').then(res => {
             setMessages(res.data);
         })
+        function loadMessages() {
+            socket.on('chat', (msg: []) => {
+                setMessages(msg)
+                console.log(msg)
+            });
+        }
         loadMessages();
     }, [])
 
-    function loadMessages() {
-        socket.on('chat', (msg: []) => {
-            setMessages(msg)
-            console.log(msg)
-        });
-    }
+
     function submitText() {
         if (userId === 0) {
             Toast.showWithGravity('Faça login primeiro!', Toast.LONG, Toast.TOP);

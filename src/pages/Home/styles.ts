@@ -205,7 +205,27 @@ const styles = StyleSheet.create({
         padding: 16,
         backgroundColor: '#F3F4F9',
     },
-
+    containerSocialMedia: {
+        width: '80%',
+        height: '10%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+    },
+    iconSocialMedia: {
+        width: width * 0.14,
+        height: width * 0.14,
+        borderRadius: (width * 0.14) / 2,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    siteIcon: {
+        width: width * 0.17,
+        height: width * 0.17,
+        borderRadius: (width * 0.17) / 2,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 
 
 });

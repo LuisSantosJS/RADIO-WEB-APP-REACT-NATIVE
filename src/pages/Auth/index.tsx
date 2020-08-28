@@ -132,7 +132,7 @@ const Auth: React.FC = () => {
         if (email.length === 0) {
             return Toast.showWithGravity('Insira seu email', Toast.LONG, Toast.TOP);
         }
-        if(select === "SELECIONE SEU CURSO"){
+        if (select === "SELECIONE SEU CURSO") {
             return Toast.showWithGravity('Selecione seu curso', Toast.LONG, Toast.TOP);
         }
         if (name.length === 0) {
@@ -173,7 +173,7 @@ const Auth: React.FC = () => {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.container}>
-                    <View style={styles.containerInputsVefi}>
+                    <View style={[styles.containerInputsVefi, isVisibleSubmit ? { justifyContent: 'space-around'} : { justifyContent: 'space-between' }]}>
                         <View style={[styles.containerViewInput]}>
                             <Text style={styles.textLive}>  Código</Text>
                             <TextInput style={styles.input}

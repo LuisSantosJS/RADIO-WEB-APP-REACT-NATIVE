@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View,  Dimensions, Image, Text,  TouchableOpacity, Platform } from 'react-native';
+import { View, Dimensions, Image, Text, TouchableOpacity, Platform, Linking } from 'react-native';
 import 'react-native-gesture-handler';
 import api from '../../services/api';
 import styles from './styles';
@@ -133,6 +133,25 @@ const Home: React.FC = () => {
 
     }
 
+    function openFacebook() {
+        Linking.canOpenURL("fb://profile/dasilvasantosluisfelipe/about").then(supported => {
+            if (supported) {
+                return Linking.openURL('fb://profile/dasilvasantosluisfelipe/about')
+            }
+            return Linking.openURL("https://www.facebook.com/dasilvasantosluisfelipe");
+
+        })
+    }
+    function openInstagram(){
+        Linking.canOpenURL("instagram://user?username=luissantos.tsx").then(supported => {
+            if(supported){
+                return  Linking.openURL('instagram://user?username=luissantos.tsx')
+            }
+            return Linking.openURL('http://instagram.com/_u/luissantos.tsx');
+        });
+
+    }
+
 
     function onOpenChat() {
         if (userId === 0) {
@@ -168,7 +187,17 @@ const Home: React.FC = () => {
                 <View style={styles.scrollAuto}>
                     <ScrollName />
                 </View>
-                <View style={styles.gradeLine} />
+                <View style={styles.containerSocialMedia} >
+                    <TouchableOpacity onPress={() => openInstagram()} style={styles.iconSocialMedia}>
+                        <Icon.Ionicons name='logo-instagram' size={width * 0.1} color='white' />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.siteIcon}>
+                        <Icon.MaterialCommunityIcons name='web' size={width * 0.12} color='white' />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => openFacebook()} style={styles.iconSocialMedia}>
+                        <Icon.Ionicons name='logo-facebook' size={width * 0.09} color='white' />
+                    </TouchableOpacity>
+                </View>
                 <View style={[styles.gridControl, { backgroundColor: '#30AE5D' }]}>
                     <TouchableOpacity activeOpacity={0.7} style={styles.itemGridControl} onPress={hanldleHearth}>
                         <Icon.AntDesign name={hearthName} color={'white'} size={width * 0.12} />

@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
         width: width,
         height: '40%',
         alignItems: 'center',
-        justifyContent: 'space-around',
         alignContent:'center'
     },
     submit:{
