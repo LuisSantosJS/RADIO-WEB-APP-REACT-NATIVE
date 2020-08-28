@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 import styles from './styles';
+import Icon from '../../assets/icons/icons';
 import Constants from 'expo-constants';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
 import {
@@ -103,23 +104,34 @@ const QueriesMusic: React.FC = () => {
                     <Text style={[styles.textHeader]}>Pedir Música</Text>
                 }
                 <View style={[styles.containerViewInput]}>
-                    <Text style={styles.textLive}>Nome da música</Text>
-                    <TextInput style={styles.input}
-                        placeholder={'Gostava tanto de você - Tim Maia'}
-                        onTouchStart={() => setIsVisibleSubmit(false)}
-                        value={music}
-                        onChangeText={(e) => setMusic(e)}
-                    />
+                    {/* <Text style={styles.textLive}>Nome</Text> */}
+                    <View style={[styles.input, { flexDirection: 'row' }]}>
+                        <View style={{ width: '15%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                            <Icon.FontAwesome name={'music'} size={width * 0.07} color={isVisibleSubmit ? 'black' : 'green'} />
+                        </View>
+                        <TextInput
+                            style={{ height: '100%', width: '85%' }}
+                            placeholder={'Nome da música'}
+                            onTouchStart={() => setIsVisibleSubmit(false)}
+                            value={music}
+                            onChangeText={(e) => setMusic(e)}
+                        />
+                    </View>
                 </View>
-
                 <View style={[styles.containerViewInput]}>
-                    <Text style={styles.textLive}>Dedicada a alguém?</Text>
-                    <TextInput style={styles.input}
-                        placeholder={'Luis Santos'}
-                        onTouchStart={() => setIsVisibleSubmit(false)}
-                        value={dedicated}
-                        onChangeText={(e) => setDedicated(e)}
-                    />
+                    {/* <Text style={styles.textLive}>Nome</Text> */}
+                    <View style={[styles.input, { flexDirection: 'row' }]}>
+                        <View style={{ width: '15%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                            <Icon.MaterialCommunityIcons name={'account-multiple'} size={width * 0.07} color={isVisibleSubmit ? 'black' : 'green'} />
+                        </View>
+                        <TextInput
+                            style={{ height: '100%', width: '85%' }}
+                            placeholder={'Dedicada a alguém?'}
+                            onTouchStart={() => setIsVisibleSubmit(false)}
+                            value={dedicated}
+                            onChangeText={(e) => setDedicated(e)}
+                        />
+                    </View>
                 </View>
                 {isVisibleSubmit && <>
                     <TouchableOpacity activeOpacity={0.4} style={styles.submit} onPress={addMusic}>

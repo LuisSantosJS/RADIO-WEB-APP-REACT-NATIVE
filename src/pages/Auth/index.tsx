@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Toast from 'react-native-simple-toast';
+import Icon from '../../assets/icons/icons';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
 import * as EmailValidator from 'email-validator';
 import styles from './styles';
@@ -17,6 +18,10 @@ import Constants from 'expo-constants';
 import { Picker, PickerIOS } from '@react-native-community/picker';
 import api from '../../services/api';
 import { useUserID, useSavedUser, useEmail, useNameUser, useCourse } from '../../Context/contextPlayer';
+
+import { Dimensions } from 'react-native';
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 
 
 const Auth: React.FC = () => {
@@ -98,7 +103,7 @@ const Auth: React.FC = () => {
     }
 
     const saveUser = async (res: any, type: string) => {
-        if(res.id == null){
+        if (res.id == null) {
             console.log(res)
             return Toast.showWithGravity('Ocorreu um erro', Toast.LONG, Toast.TOP);
 
@@ -124,10 +129,13 @@ const Auth: React.FC = () => {
     }
 
     function submit() {
-        if(email.length === 0){
+        if (email.length === 0) {
             return Toast.showWithGravity('Insira seu email', Toast.LONG, Toast.TOP);
         }
-        if(name.length === 0){
+        if(select === "SELECIONE SEU CURSO"){
+            return Toast.showWithGravity('Selecione seu curso', Toast.LONG, Toast.TOP);
+        }
+        if (name.length === 0) {
             return Toast.showWithGravity('Insira seu nome', Toast.LONG, Toast.TOP);
         }
         setAguarde(true);
@@ -166,18 +174,18 @@ const Auth: React.FC = () => {
                 </View>
                 <View style={styles.container}>
                     <View style={styles.containerInputsVefi}>
-                    <View style={[styles.containerViewInput]}>
-                        <Text style={styles.textLive}>Código</Text>
-                        <TextInput style={styles.input}
-                            placeholder={'Insira o código'}
-                            value={code}
-                            onChangeText={(e) => setCode(e)}
-                        />
-                    </View>
+                        <View style={[styles.containerViewInput]}>
+                            <Text style={styles.textLive}>  Código</Text>
+                            <TextInput style={styles.input}
+                                placeholder={'Insira o código'}
+                                value={code}
+                                onChangeText={(e) => setCode(e)}
+                            />
+                        </View>
 
-                    <TouchableOpacity disabled={aguarde} activeOpacity={0.4} style={styles.submit} onPress={() => validationEmail()} >
-                        <Text style={styles.textSubmit}>Verificar</Text>
-                    </TouchableOpacity>
+                        <TouchableOpacity disabled={aguarde} activeOpacity={0.4} style={styles.submit} onPress={() => validationEmail()} >
+                            <Text style={styles.textSubmit}>Verificar</Text>
+                        </TouchableOpacity>
                     </View>
                     {aguarde && <Text>Aguarde...</Text>}
                 </View>
@@ -198,32 +206,45 @@ const Auth: React.FC = () => {
                 </TouchableOpacity>
             </View>
             <View style={styles.container}>
-            <Text style={[styles.textHeader]}>Cadastro</Text>
+                <Text style={[styles.textHeader]}>Cadastro</Text>
                 <View style={[styles.containerViewInput]}>
-                    <Text style={styles.textLive}>Nome</Text>
-                    <TextInput style={styles.input}
-                        placeholder={'Maria Joaquina'}
-                        value={name}
-                        onChangeText={(e) => setName(e)}
-                    />
+                    {/* <Text style={styles.textLive}>Nome</Text> */}
+                    <View style={[styles.input, { flexDirection: 'row' }]}>
+                        <View style={{ width: '15%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                            <Icon.MaterialIcons name={'person'} size={width * 0.07} color={isVisibleSubmit ? 'black' : 'green'} />
+                        </View>
+                        <TextInput
+                            style={{ height: '100%', width: '85%' }}
+                            placeholder={'Nome'}
+                            value={name}
+                            onChangeText={(e) => setName(e)}
+                        />
+                    </View>
                 </View>
                 <View style={[styles.containerViewInput]}>
-                    <Text style={styles.textLive}>Email</Text>
-                    <TextInput style={styles.input}
-                        placeholder={'mariajoaquina@gmail.com'}
-                        value={email}
-                        onChangeText={(e) => setEmail(e)}
-                    />
+
+                    {/* <Text style={styles.textLive}>Email</Text> */}
+                    <View style={[styles.input, { flexDirection: 'row' }]}>
+                        <View style={{ width: '15%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                            <Icon.MaterialIcons name={'email'} size={width * 0.07} color={isVisibleSubmit ? 'black' : 'green'} />
+                        </View>
+                        <TextInput style={{ height: '100%', width: '85%' }}
+                            placeholder={'Email'}
+                            value={email}
+                            onChangeText={(e) => setEmail(e)}
+                        />
+                    </View>
                 </View>
                 {Platform.OS === 'ios' ?
                     <View style={[styles.containerViewInput]}>
-                        <Text style={styles.textLive}>Curso</Text>
+                        {/* <Text style={styles.textLive}>Curso</Text> */}
                         <PickerIOS
                             itemStyle={styles.input}
                             selectedValue={select}
                             onValueChange={(itemValue, itemIndex) =>
                                 setSelect(String(itemValue))
                             }>
+                            <PickerIOS.Item label="SELECIONE SEU CURSO" value="SELECIONE SEU CURSO" color='black' />
                             <PickerIOS.Item label="REDES DE COMPUTADORES" value="REDES DE COMPUTADORES" color='black' />
                             <PickerIOS.Item label="INFORMÁTICA PARA INTERNET" value="INFORMÁTICA PARA INTERNET" color='black' />
                             <PickerIOS.Item label="EDIFICAÇÕES" value="EDIFICAÇÕES" color='black' />
@@ -232,13 +253,14 @@ const Auth: React.FC = () => {
 
                     :
                     <View style={[styles.containerViewInput]}>
-                        <Text style={styles.textLive}>Curso</Text>
+                        {/* <Text style={styles.textLive}>Curso</Text> */}
                         <View style={styles.input}>
                             <Picker
                                 selectedValue={select}
                                 onValueChange={(itemValue, itemIndex) =>
                                     setSelect(String(itemValue))
                                 }>
+                                <Picker.Item label="SELECIONE SEU CURSO" value="SELECIONE SEU CURSO" color='black' />
                                 <Picker.Item label="REDES DE COMPUTADORES" value="REDES DE COMPUTADORES" color='black' />
                                 <Picker.Item label="INFORMÁTICA PARA INTERNET" value="INFORMÁTICA PARA INTERNET" color='black' />
                                 <Picker.Item label="EDIFICAÇÕES" value="EDIFICAÇÕES" color='black' />

@@ -11,13 +11,14 @@ import Chat from '../pages/Chat';
 import QueriesMusic from '../pages/QueriesMusic';
 import { StatusBar, View } from 'react-native';
 import { DrawerContent } from '../component/Drawer';
-
+import ProviderSignal from '../Context/contextSignal';
 const Drawer = createDrawerNavigator();
 const Router: React.FC = () => {
 
   return (
     <NavigationContainer>
       <ProviderAuth>
+        <ProviderSignal>
           <StatusBar backgroundColor={'#258E4A'} barStyle={'light-content'} />
           <Drawer.Navigator initialRouteName='Home' drawerContent={props => <DrawerContent {...props} />}  >
             <Drawer.Screen name="Home" component={Home} />
@@ -26,6 +27,7 @@ const Router: React.FC = () => {
             <Drawer.Screen name="Auth" component={Auth} />
             <Drawer.Screen name="Chat" component={Chat} />
           </Drawer.Navigator>
+        </ProviderSignal>
       </ProviderAuth>
     </NavigationContainer>
   );

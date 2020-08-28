@@ -1,7 +1,9 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import * as Updates from 'expo-updates'
+import io from "socket.io-client";
 import api from '../services/api';
+import NetInfo from '@react-native-community/netinfo';
 import Toast from 'react-native-simple-toast';
 type ContextType = {
     play: boolean;
@@ -42,7 +44,7 @@ const ContextApp = createContext<ContextType>({
     setUserId: (value: number) => { },
     userSaved: false,
     setUserSaved: (value: boolean) => { },
-    select: 'REDES DE COMPUTADORES',
+    select: 'SELECIONE SEU CURSO',
     setSelect: (value: string) => { },
     email: '',
     setEmail: (value: string) => { },
@@ -63,18 +65,35 @@ const ProviderAuth: React.FC = ({ children }) => {
     const [play, setPlay] = useState<boolean>(false);
     const [infoMusic, setInfoMusic] = useState<string>('RÁDIO CAMPUS IFAC - SEJA BEM VINDO');
     const [online, setOnline] = useState<string>('');
+    const socket = io("http://radiocampusapi.com.br");
     const [capaMusica, setCapaMusica] = useState<string>('nulo');
     const [controlSave, setControlSave] = useState<boolean>(false);
     const [userId, setUserId] = useState<number>(0);
     const [namePlayPause, setNamePlayPause] = useState<string>('play');
     const [userSaved, setUserSaved] = useState<boolean>(false);
-    const [select, setSelect] = useState<string>('REDES DE COMPUTADORES');
+    const [select, setSelect] = useState<string>('SELECIONE SEU CURSO');
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [numberLikes, setNumberLikes] = useState<number>(0);
 
-    useEffect(()=>{
-        async function updateApp(){
+
+    useEffect(() => {
+
+
+   
+            socket.on('online', (res: any)=>{
+                setOnline(res)
+                //console.log(res)
+            })
+    
+
+
+
+
+    }, [])
+
+    useEffect(() => {
+        async function updateApp() {
             const {isAvailable} = await Updates.checkForUpdateAsync();
 
             if(isAvailable){
@@ -85,7 +104,7 @@ const ProviderAuth: React.FC = ({ children }) => {
 
         }
         updateApp();
-    },[])
+    }, [])
 
     useEffect(() => { }, [infoMusic, online, numberLikes, capaMusica]);
 
@@ -94,7 +113,6 @@ const ProviderAuth: React.FC = ({ children }) => {
             const response = await fetch('http://xcast.com.br/api-json/VkZaU1JrNVZOVFphZWpBOStS')
             const res = await response.json();
             setInfoMusic(String(res.musica_atual));
-            setOnline(String(res.ouvintes_conectados));
             setCapaMusica(String(res.capa_musica));
             //console.log('online', res.ouvintes_conectados);
             api.get('/users/likes').then(likes => {
@@ -104,6 +122,7 @@ const ProviderAuth: React.FC = ({ children }) => {
             return setTimeout(loadMusic, 1000)
         }
         loadMusic();
+
     }, []);
 
     useEffect(() => {

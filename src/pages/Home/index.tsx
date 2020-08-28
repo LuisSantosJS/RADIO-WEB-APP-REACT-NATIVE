@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, TouchableWithoutFeedback, Dimensions, Image, Text, TextInput, TouchableOpacity, Platform } from 'react-native';
+import { View,  Dimensions, Image, Text,  TouchableOpacity, Platform } from 'react-native';
 import 'react-native-gesture-handler';
 import api from '../../services/api';
 import styles from './styles';
@@ -189,7 +189,7 @@ const Home: React.FC = () => {
                         <View style={[styles.containIconSheet, { flexDirection: 'row' }]}>
                             <View style={styles.icontextHeader}>
                                 <Icon.MaterialIcons name={'visibility'} color={'white'} size={width * 0.09} />
-                                <Text style={styles.text}>{online}</Text>
+                                <Text style={styles.text}>{Number(online)}</Text>
                             </View>
                             <View style={styles.icontextHeader}>
                                 <Icon.AntDesign name={'heart'} color={'white'} size={width * 0.065} />
