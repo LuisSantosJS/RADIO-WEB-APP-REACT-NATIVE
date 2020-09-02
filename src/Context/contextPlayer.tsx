@@ -112,7 +112,7 @@ const ProviderAuth: React.FC = ({ children }) => {
         async function loadMusic() {
             const response = await fetch('http://xcast.com.br/api-json/VkZaU1JrNVZOVFphZWpBOStS')
             const res = await response.json();
-            setInfoMusic(String(res.musica_atual));
+            setInfoMusic(JSON.parse(JSON.stringify(res.musica_atual)));
             setCapaMusica(String(res.capa_musica));
             //console.log('online', res.ouvintes_conectados);
             api.get('/users/likes').then(likes => {

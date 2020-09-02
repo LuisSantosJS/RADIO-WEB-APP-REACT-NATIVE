@@ -40,15 +40,12 @@ const Chat: React.FC = () => {
     const socket = io("http://radiocampusapi.com.br");
     useEffect(() => {
         api.get('/messages').then(res => {
-            setMessages(res.data);
+            setMessages(res.data.res);
         })
-        function loadMessages() {
-            socket.on('chat', (msg: []) => {
-                setMessages(msg)
-                console.log(msg)
-            });
-        }
-        loadMessages();
+        socket.on('chat', (msg: any) => {
+            setMessages(msg)
+            //console.log('msm',msg.res)
+        });
     }, [])
 
 
