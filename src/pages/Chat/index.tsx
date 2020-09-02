@@ -42,10 +42,13 @@ const Chat: React.FC = () => {
         api.get('/messages').then(res => {
             setMessages(res.data.res);
         })
-        socket.on('chat', (msg: any) => {
-            setMessages(msg)
-            //console.log('msm',msg.res)
-        });
+        function loadMessages() {
+            socket.on('chat', (msg: []) => {
+                setMessages(msg)
+                console.log(msg)
+            });
+        }
+        loadMessages();
     }, [])
 
 
