@@ -46,7 +46,8 @@ const Home: React.FC = () => {
 
     useEffect(() => {
         socket.on('likesend', () => {
-            return onViewHearthVisible()
+            console.log('like')
+            // onViewHearthVisible()
         })
 
     }, [])
@@ -87,11 +88,13 @@ const Home: React.FC = () => {
     }, [])
 
 
-    function onViewHearthVisible() {
-        setOpacityHearth(!opacityHearth);
-        setTimeout(() => { }, 3000)
-        setOpacityHearth(!opacityHearth)
-    }
+    // function onViewHearthVisible() {
+    //     setOpacityHearth(true);
+    //     const timer = setTimeout(() => setOpacityHearth(false), 4000);
+    //     clearTimeout(timer);
+    //     setOpacityHearth(false)
+
+    // }
 
     const onOpen = () => {
         modalRef.current?.open();
@@ -256,10 +259,10 @@ const Home: React.FC = () => {
                 snapPoint={width * 0.2}
                 modalHeight={width * 0.2} >
             </Modalize>
-            {opacityHearth &&
-                <Animated.View style={{ position: 'absolute', left: width * 0.05, top: width * 0.25, width: width * 0.2, height: width * 0.2, alignItems: 'center', justifyContent: 'center' }} >
-                    <LottieView source={require('../../assets/hearth.json')} resizeMode='contain' autoPlay loop />
-                </Animated.View>}
+{/* 
+            <Animated.View style={{ position: 'absolute', left: width * 0.05, top: width * 0.25, width: width * 0.2, height: width * 0.2, alignItems: 'center', justifyContent: 'center', opacity: opacityHearth ? 1 : 0 }} >
+                <LottieView source={require('../../assets/hearth.json')} resizeMode='contain' autoPlay loop />
+            </Animated.View> */}
 
         </>
     );
