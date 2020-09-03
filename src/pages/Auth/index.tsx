@@ -246,7 +246,7 @@ const Auth: React.FC = () => {
                             }>
                             <PickerIOS.Item label="SELECIONE SEU CURSO" value="SELECIONE SEU CURSO" color='black' />
                             <PickerIOS.Item label="REDES DE COMPUTADORES" value="REDES DE COMPUTADORES" color='black' />
-                            <PickerIOS.Item label="INFORMÁTICA PARA INTERNET" value="INFORMÁTICA PARA INTERNET" color='black' />
+                            <PickerIOS.Item label="INFORMATICA PARA INTERNET" value="INFORMÁTICA PARA INTERNET" color='black' />
                             <PickerIOS.Item label="EDIFICAÇÕES" value="EDIFICAÇÕES" color='black' />
                         </PickerIOS>
                     </View>

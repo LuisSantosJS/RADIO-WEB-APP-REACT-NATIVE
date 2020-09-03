@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Dimensions, Image, Text, TouchableOpacity, Platform, Linking } from 'react-native';
+import { View, Dimensions, Image, Text, Animated , TouchableOpacity, Platform, Linking } from 'react-native';
 import 'react-native-gesture-handler';
 import api from '../../services/api';
 import styles from './styles';
@@ -36,8 +36,24 @@ const Home: React.FC = () => {
     const { online } = useOnlineUsers();
     const { infoMusic, setInfoMusic } = useNameMusic();
     const { numberLikes } = useLikes();
+    const opacityHearth = new Animated.Value(0);
     const [sendTextMessage, setSendTextMessage] = useState<string>('');
     const { capaMusica } = useCapaMusica();
+
+   function handleLikeHearth(){
+        Animated.timing(opacityHearth, {
+            toValue: 1,
+            duration: 1000,
+            useNativeDriver: true
+        }).start(()=>{
+            Animated.timing(opacityHearth, {
+                toValue: 0,
+                duration: 1000,
+                useNativeDriver: true
+            }).start();
+        });
+
+    }
 
     useEffect(() => {
         TrackPlayer.addEventListener('remote-play', () => setNamePlayPause('pause'));
@@ -117,6 +133,18 @@ const Home: React.FC = () => {
             return navigation.navigate('Auth')
         }
         setHearth(!hearth);
+        Animated.timing(opacityHearth, {
+            toValue: 1,
+            duration: 1000,
+            useNativeDriver: false
+        }).start(()=>{
+            Animated.timing(opacityHearth, {
+                toValue: 0,
+                duration: 1000,
+                useNativeDriver: false
+            }).start();
+        });
+
         if (hearthName === 'hearto') {
             setHearthName('heart');
             api.post('/users/like/create', {
@@ -142,10 +170,10 @@ const Home: React.FC = () => {
 
         })
     }
-    function openInstagram(){
+    function openInstagram() {
         Linking.canOpenURL("instagram://user?username=luissantos.tsx").then(supported => {
-            if(supported){
-                return  Linking.openURL('instagram://user?username=luissantos.tsx')
+            if (supported) {
+                return Linking.openURL('instagram://user?username=luissantos.tsx')
             }
             return Linking.openURL('http://instagram.com/_u/luissantos.tsx');
         });
@@ -236,6 +264,8 @@ const Home: React.FC = () => {
                 snapPoint={width * 0.2}
                 modalHeight={width * 0.2} >
             </Modalize>
+
+            <Animated.Image source={require('../../assets/hearth.png')} style={{ position: 'absolute', left: width * 0.05, top: width * 0.25, width: width * 0.15, height: width * 0.15, opacity: opacityHearth}} />
 
         </>
     );
