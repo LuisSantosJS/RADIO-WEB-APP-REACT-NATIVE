@@ -4,7 +4,6 @@ import 'react-native-gesture-handler';
 import api from '../../services/api';
 import Animated, { Easing } from 'react-native-reanimated'
 import styles from './styles';
-import LottieView from 'lottie-react-native';
 import TrackPlayer from 'react-native-track-player';
 import Constants from 'expo-constants';
 import { usePlayerStream, useOnlineUsers, useNameMusic, useUserID, useLikes, usePlayPause, useCapaMusica } from '../../Context/contextPlayer';
