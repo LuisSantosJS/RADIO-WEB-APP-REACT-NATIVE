@@ -98,9 +98,7 @@ const Home: React.FC = () => {
     useEffect(() => {
 
     }, [online])
-    useEffect(() => {
-        // bottomSheetRef.current?.snapTo(1);
-    }, [])
+
     useEffect(() => {
         if (userId !== 0) {
             api.post('/users/like/status', {
@@ -133,17 +131,7 @@ const Home: React.FC = () => {
             return navigation.navigate('Auth')
         }
         setHearth(!hearth);
-        Animated.timing(opacityHearth, {
-            toValue: 1,
-            duration: 1000,
-            useNativeDriver: false
-        }).start(()=>{
-            Animated.timing(opacityHearth, {
-                toValue: 0,
-                duration: 1000,
-                useNativeDriver: false
-            }).start();
-        });
+
 
         if (hearthName === 'hearto') {
             setHearthName('heart');
@@ -158,6 +146,7 @@ const Home: React.FC = () => {
                 value: false
             })
         }
+        return handleLikeHearth()
 
     }
 
