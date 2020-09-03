@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Dimensions, Image, Text, Animated , TouchableOpacity, Platform, Linking } from 'react-native';
+import { View, Dimensions, Image, Text, TouchableOpacity, Platform, Linking } from 'react-native';
 import 'react-native-gesture-handler';
 import api from '../../services/api';
+import Animated, { Easing } from 'react-native-reanimated'
 import styles from './styles';
+import LottieView from 'lottie-react-native';
 import TrackPlayer from 'react-native-track-player';
 import Constants from 'expo-constants';
 import { usePlayerStream, useOnlineUsers, useNameMusic, useUserID, useLikes, usePlayPause, useCapaMusica } from '../../Context/contextPlayer';
@@ -12,6 +14,7 @@ import { useNavigation, DrawerActions } from '@react-navigation/native';
 import Toast from 'react-native-simple-toast';
 import { Modalize } from 'react-native-modalize';
 import ScrollName from '../../component/ScrollName';
+import io from "socket.io-client";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 import KeyboardH from '../../Functions/Keyboard';
@@ -36,24 +39,18 @@ const Home: React.FC = () => {
     const { online } = useOnlineUsers();
     const { infoMusic, setInfoMusic } = useNameMusic();
     const { numberLikes } = useLikes();
-    const opacityHearth = new Animated.Value(0);
+    const socket = io("http://radiocampusapi.com.br");
+    const [opacityHearth, setOpacityHearth] = useState<boolean>(false);
     const [sendTextMessage, setSendTextMessage] = useState<string>('');
     const { capaMusica } = useCapaMusica();
 
-   function handleLikeHearth(){
-        Animated.timing(opacityHearth, {
-            toValue: 1,
-            duration: 1000,
-            useNativeDriver: true
-        }).start(()=>{
-            Animated.timing(opacityHearth, {
-                toValue: 0,
-                duration: 1000,
-                useNativeDriver: true
-            }).start();
-        });
+    useEffect(() => {
+        socket.on('likesend', () => {
+            return onViewHearthVisible()
+        })
 
-    }
+    }, [])
+
 
     useEffect(() => {
         TrackPlayer.addEventListener('remote-play', () => setNamePlayPause('pause'));
@@ -90,7 +87,11 @@ const Home: React.FC = () => {
     }, [])
 
 
-
+    function onViewHearthVisible() {
+        setOpacityHearth(!opacityHearth);
+        setTimeout(() => { }, 3000)
+        setOpacityHearth(!opacityHearth)
+    }
 
     const onOpen = () => {
         modalRef.current?.open();
@@ -125,13 +126,15 @@ const Home: React.FC = () => {
         }
     }
 
+
+
     function hanldleHearth() {
         if (userId === 0) {
             Toast.showWithGravity('Faça login primeiro!', Toast.LONG, Toast.TOP);
             return navigation.navigate('Auth')
         }
-        setHearth(!hearth);
 
+        setHearth(!hearth);
 
         if (hearthName === 'hearto') {
             setHearthName('heart');
@@ -146,7 +149,7 @@ const Home: React.FC = () => {
                 value: false
             })
         }
-        return handleLikeHearth()
+        return socket.emit('likesend', 'like');
 
     }
 
@@ -253,8 +256,10 @@ const Home: React.FC = () => {
                 snapPoint={width * 0.2}
                 modalHeight={width * 0.2} >
             </Modalize>
-
-            <Animated.Image source={require('../../assets/hearth.png')} style={{ position: 'absolute', left: width * 0.05, top: width * 0.25, width: width * 0.15, height: width * 0.15, opacity: opacityHearth}} />
+            {opacityHearth &&
+                <Animated.View style={{ position: 'absolute', left: width * 0.05, top: width * 0.25, width: width * 0.2, height: width * 0.2, alignItems: 'center', justifyContent: 'center' }} >
+                    <LottieView source={require('../../assets/hearth.json')} resizeMode='contain' autoPlay loop />
+                </Animated.View>}
 
         </>
     );
