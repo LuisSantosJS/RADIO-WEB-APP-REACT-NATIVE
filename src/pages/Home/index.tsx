@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { View, Dimensions, Image, Text, TouchableOpacity, Platform, Linking } from 'react-native';
 import 'react-native-gesture-handler';
 import api from '../../services/api';
+import LikeComponent from '../../component/ClassAnimatedLike'
 import Animated, { Easing } from 'react-native-reanimated'
 import styles from './styles';
 import TrackPlayer from 'react-native-track-player';
@@ -258,10 +259,13 @@ const Home: React.FC = () => {
                 snapPoint={width * 0.2}
                 modalHeight={width * 0.2} >
             </Modalize>
-{/* 
+            {/* 
             <Animated.View style={{ position: 'absolute', left: width * 0.05, top: width * 0.25, width: width * 0.2, height: width * 0.2, alignItems: 'center', justifyContent: 'center', opacity: opacityHearth ? 1 : 0 }} >
                 <LottieView source={require('../../assets/hearth.json')} resizeMode='contain' autoPlay loop />
             </Animated.View> */}
+            <LikeComponent   >
+
+            </LikeComponent>
 
         </>
     );
