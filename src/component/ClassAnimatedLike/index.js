@@ -45,7 +45,7 @@ export default class LikeComponent extends Component {
     render() {
         return (
             <Animated.Image style={{
-                position: "absolute", left: (width / 3.41) - ((width / 3) / 2), top: height - (width * 0.15) * 4, width: width * 0.14, height: width * 0.14, alignItems: 'center', justifyContent: 'center', opacity: this.state.fadeAnim, transform: [{
+                position: "absolute", left: (width / 3.41) - ((width / 3) / 2), top: height - (width * 0.15) * 7, width: width * 0.14, height: width * 0.14, alignItems: 'center', justifyContent: 'center', opacity: this.state.fadeAnim, transform: [{
                     translateY: this.state.fadeAnim.interpolate({
                         inputRange: [0, 1],
                         outputRange: [170, 0]

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Dimensions, Image, Text, TouchableOpacity, Platform, Linking } from 'react-native';
+import { View, Dimensions, Image, Text, TouchableOpacity,TouchableWithoutFeedback, Platform, Linking } from 'react-native';
 import 'react-native-gesture-handler';
 import api from '../../services/api';
 import LikeComponent from '../../component/ClassAnimatedLike'
@@ -222,9 +222,11 @@ const Home: React.FC = () => {
                     </TouchableOpacity>
                 </View>
                 <View style={[styles.gridControl, { backgroundColor: '#30AE5D' }]}>
-                    <TouchableOpacity activeOpacity={0.7} style={styles.itemGridControl} onPress={hanldleHearth}>
-                        <Icon.AntDesign name={hearthName} color={'white'} size={width * 0.12} />
-                    </TouchableOpacity>
+                    <TouchableWithoutFeedback style={{elevation: 2000}}>
+                        <TouchableOpacity activeOpacity={0.7} style={[styles.itemGridControl]} onPress={hanldleHearth}>
+                            <Icon.AntDesign name={hearthName} color={'white'} size={width * 0.12} />
+                        </TouchableOpacity>
+                    </TouchableWithoutFeedback>
                     <TouchableOpacity activeOpacity={0.7} style={[styles.itemGridControl, { backgroundColor: 'white' }]} onPress={handlePlayPause}>
                         <Icon.MaterialCommunityIcons name={play == false ? 'play' : 'pause'} color={'#30AE5D'} size={width * 0.12} />
                     </TouchableOpacity>
