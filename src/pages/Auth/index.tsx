@@ -139,6 +139,7 @@ const Auth: React.FC = () => {
             return Toast.showWithGravity('Insira seu nome', Toast.LONG, Toast.TOP);
         }
         setAguarde(true);
+        
         api.post('/users/create', {
             course: select,
             email: email.toLowerCase(),
@@ -246,8 +247,8 @@ const Auth: React.FC = () => {
                             }>
                             <PickerIOS.Item label="SELECIONE SEU CURSO" value="SELECIONE SEU CURSO" color='black' />
                             <PickerIOS.Item label="REDES DE COMPUTADORES" value="REDES DE COMPUTADORES" color='black' />
-                            <PickerIOS.Item label="INFORMATICA PARA INTERNET" value="INFORMÁTICA PARA INTERNET" color='black' />
-                            <PickerIOS.Item label="EDIFICAÇÕES" value="EDIFICAÇÕES" color='black' />
+                            <PickerIOS.Item label="INFORMÁTICA PARA INTERNET" value="INFORMATICA PARA INTERNET" color='black' />
+                            <PickerIOS.Item label="EDIFICAÇÕES" value="EDIFICACOES" color='black' />
                         </PickerIOS>
                     </View>
 
