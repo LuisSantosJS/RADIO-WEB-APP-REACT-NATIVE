@@ -184,6 +184,12 @@ const Home: React.FC = () => {
         navigation.navigate('Chat');
     }
 
+    const handleShare = () => {
+        const text = 'OLHA QUE TUDOOO!! BAIXE O APP "RADIO CAMPUS IFAC" => https://play.google.com/store/apps/details?id=com.radiocorredorifac'
+        Linking.openURL(`whatsapp://send?text=${text}`);
+    }
+
+
     return (
         <>
             <View style={{ width: '100%', height: Platform.OS == 'ios' ? Constants.statusBarHeight : 0, backgroundColor: '#258E4A', }} />
@@ -192,7 +198,7 @@ const Home: React.FC = () => {
                     <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/menu.png')} />
                 </TouchableOpacity>
                 <Text style={styles.textLive}>RADIO CAMPUS IFAC</Text>
-                <TouchableOpacity style={styles.ViewIconHeader} >
+                <TouchableOpacity onPress={handleShare} style={styles.ViewIconHeader} >
                     <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/share.png')} />
                 </TouchableOpacity>
 

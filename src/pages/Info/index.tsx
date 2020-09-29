@@ -15,6 +15,11 @@ import {
 } from 'react-native';
 const Info: React.FC = () => {
     const navigation = useNavigation();
+    const handleShare = () => {
+        const text = 'OLHA QUE TUDOOO!! BAIXE O APP "RADIO CAMPUS IFAC" => https://play.google.com/store/apps/details?id=com.radiocorredorifac'
+        Linking.openURL(`whatsapp://send?text=${text}`);
+    }
+
     return (
         <>
             <View style={{ width: '100%', height: Platform.OS == 'ios' ? Constants.statusBarHeight : 0, backgroundColor: '#258E4A', }} />
@@ -23,7 +28,7 @@ const Info: React.FC = () => {
                     <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/menu.png')} />
                 </TouchableOpacity>
                 <Text style={styles.textLive}>RADIO CAMPUS IFAC</Text>
-                <TouchableOpacity style={styles.ViewIconHeader} >
+                <TouchableOpacity onPress={handleShare} style={styles.ViewIconHeader} >
                     <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/share.png')} />
                 </TouchableOpacity>
             </View>
@@ -34,8 +39,8 @@ const Info: React.FC = () => {
 
                 <View style={{ width: '100%', height: '8%', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Text style={styles.textTitleInfo}>Contato:</Text>
-                    <TouchableOpacity activeOpacity={0.7} onPress={() => Linking.openURL('mailto:querytena@gmail.com')}>
-                        <Text numberOfLines={2} ellipsizeMode='tail' style={styles.emailText}>querytena@gmail.com</Text>
+                    <TouchableOpacity activeOpacity={0.7} onPress={() => Linking.openURL('mailto:contato@radiocampusadmin.com.br')}>
+                        <Text numberOfLines={2} ellipsizeMode='tail' style={styles.emailText}>contato@radiocampusadmin.com.br</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.gradeLine} />

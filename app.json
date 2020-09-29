@@ -8,10 +8,10 @@
       "**/*"
     ],
     "android": {
-      "versionCode": 3
+      "versionCode": 5
     },
     "ios": {
-      "buildNumber": "3"
+      "buildNumber": "5"
     }
   }
 }

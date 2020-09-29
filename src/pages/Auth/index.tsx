@@ -6,6 +6,7 @@ import {
     Platform,
     Text,
     Keyboard,
+    Linking,
     TextInput
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -159,6 +160,11 @@ const Auth: React.FC = () => {
         setAguarde(false)
     }
 
+    const handleShare = () => {
+        const text = 'OLHA QUE TUDOOO!! BAIXE O APP "RADIO CAMPUS IFAC" => https://play.google.com/store/apps/details?id=com.radiocorredorifac'
+        Linking.openURL(`whatsapp://send?text=${text}`);
+    }
+
 
     if (isCode) {
         return (
@@ -169,7 +175,7 @@ const Auth: React.FC = () => {
                         <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/menu.png')} />
                     </TouchableOpacity>
                     <Text style={styles.textLive}>RADIO CAMPUS IFAC</Text>
-                    <TouchableOpacity style={styles.ViewIconHeader} >
+                    <TouchableOpacity onPress={handleShare} style={styles.ViewIconHeader} >
                         <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/share.png')} />
                     </TouchableOpacity>
                 </View>

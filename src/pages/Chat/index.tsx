@@ -4,6 +4,7 @@ import {
     TouchableOpacity,
     Image,
     Text,
+    Linking,
     Animated,
     Platform,
     Dimensions,
@@ -50,6 +51,11 @@ const Chat: React.FC = () => {
         }
         loadMessages();
     }, [])
+
+    const handleShare = () => {
+        const text = 'OLHA QUE TUDOOO!! BAIXE O APP "RADIO CAMPUS IFAC" => https://play.google.com/store/apps/details?id=com.radiocorredorifac'
+        Linking.openURL(`whatsapp://send?text=${text}`);
+    }
 
 
     function submitText() {
@@ -102,7 +108,7 @@ const Chat: React.FC = () => {
                     <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/menu.png')} />
                 </TouchableOpacity>
                 <Text style={styles.textLive}>CHAT AO VIVO</Text>
-                <TouchableOpacity style={styles.ViewIconHeader}>
+                <TouchableOpacity onPress={handleShare} style={styles.ViewIconHeader}>
                     <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/share.png')} />
                 </TouchableOpacity>
             </View>

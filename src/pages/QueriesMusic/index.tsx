@@ -10,6 +10,7 @@ import {
     Image,
     Text,
     Platform,
+    Linking,
     Keyboard,
     TouchableOpacity,
     ActivityIndicator
@@ -86,6 +87,11 @@ const QueriesMusic: React.FC = () => {
             Keyboard.removeListener('keyboardDidShow', handleKeyboardShow)
         };
     }, []);
+    const handleShare = () => {
+        const text = 'OLHA QUE TUDOOO!! BAIXE O APP "RADIO CAMPUS IFAC" => https://play.google.com/store/apps/details?id=com.radiocorredorifac'
+        Linking.openURL(`whatsapp://send?text=${text}`);
+    }
+
 
     return (
         <>
@@ -95,7 +101,7 @@ const QueriesMusic: React.FC = () => {
                     <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/menu.png')} />
                 </TouchableOpacity>
                 <Text style={styles.textLive}>RADIO CAMPUS IFAC</Text>
-                <TouchableOpacity style={styles.ViewIconHeader} >
+                <TouchableOpacity onPress={handleShare}  style={styles.ViewIconHeader} >
                     <Image resizeMode={"contain"} style={styles.iconHeader} source={require('../../assets/share.png')} />
                 </TouchableOpacity>
             </View>
