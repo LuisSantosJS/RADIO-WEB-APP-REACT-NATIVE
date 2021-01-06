@@ -14,7 +14,7 @@
     "@react-native-community/picker": "^1.6.5",
     "@react-navigation/drawer": "^5.8.2",
     "@react-navigation/native": "^5.5.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "email-validator": "^2.0.4",
     "expo": "~38.0.1",
     "expo-constants": "~9.1.1",
