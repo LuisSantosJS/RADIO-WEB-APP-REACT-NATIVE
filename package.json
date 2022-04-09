@@ -22,7 +22,7 @@
     "expo-updates": "~0.2.8",
     "lottie": "0.0.1",
     "lottie-ios": "^3.1.8",
-    "moment": "^2.27.0",
+    "moment": "^2.29.2",
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "~0.62.2",
